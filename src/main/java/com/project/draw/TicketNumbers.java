@@ -20,4 +20,8 @@ public class TicketNumbers {
     public Label getLabel() {
         return label;
     }
+
+    public Pane getPane() {
+        return pane;
+    }
 }

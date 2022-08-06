@@ -14,4 +14,12 @@ public class TicketEndEntity {
     public Long getCorrect() {
         return correct;
     }
+
+    public TicketWithAnswersEntity[] getTicket() {
+        return ticket;
+    }
+
+    public TicketWithAnswersEntity getTicket(int index){
+        return ticket[index];
+    }
 }

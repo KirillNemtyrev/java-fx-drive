@@ -1,10 +1,9 @@
 package com.project.controllers;
 
+import com.project.API;
 import com.project.Runner;
 import com.project.draw.TicketNumbers;
-import com.project.entity.TicketAnswersEntity;
-import com.project.entity.TicketEntity;
-import com.project.entity.TicketQuestionsEntity;
+import com.project.entity.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,15 +54,22 @@ public class TicketController extends Application {
     @FXML
     private Label labelAnswered;
 
+    @FXML
+    private Pane paneEndTicket;
+
 
     private double offsetPosX;
     private double offsetPosY;
 
     private static TicketEntity ticketEntity;
 
+    private static API api = new API();
+
     public TicketController(){}
-    public TicketController(TicketEntity ticketEntity){
-        this.ticketEntity = ticketEntity;
+    public TicketController(String token){
+        api.setToken(token);
+
+        ticketEntity = api.startTicket();
     }
 
     public void setTicketEntity(TicketEntity ticketEntity){
@@ -163,6 +169,12 @@ public class TicketController extends Application {
         public static Long[] answers = new Long[40];
         private Label labelChoise;
 
+        public TicketQuestions(){
+
+            paneEndTicket.setVisible(true);
+
+        }
+
         /**
          * The function is used to draw ticket numbers.
          * @param count
@@ -199,6 +211,8 @@ public class TicketController extends Application {
 
             anchorPaneQuestions.setPrefHeight(Math.max(54 * count, 866));
             selectQuestion(0);
+
+            paneEndTicket.setOnMouseClicked(event -> new CloseTicket());
         }
 
         /**
@@ -368,6 +382,156 @@ public class TicketController extends Application {
             }
 
             labelAnswered.setText(ammount + "/40");
+        }
+
+    }
+
+    public class CloseTicket{
+
+        private TicketEndEntity ticketEndEntity;
+
+        public CloseTicket(){
+
+            paneEndTicket.setVisible(false);
+            this.ticketEndEntity = api.endTicket(ticketEntity.getUuid(), TicketQuestions.answers);
+
+            TicketQuestions();
+
+        }
+
+        public void TicketQuestions(){
+
+            for(int temp = 0; temp < TicketQuestions.ticketNumbers.size(); temp++){
+
+                TicketWithAnswersEntity ticketQuestions = ticketEndEntity.getTicket(temp);
+                TicketQuestions.ticketNumbers.get(temp).getLabel().setTextFill(
+                        Paint.valueOf(
+                                ticketQuestions.getCorrect() == ticketQuestions.getAnswer() ? "#078029" :
+                                        ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() != null ? "#5c0808" : "#dab55e"));
+
+                int number = temp;
+                TicketQuestions.ticketNumbers.get(temp).getPane().setOnMouseClicked(event -> drawQuestion(number));
+
+            }
+
+            anchorPaneQuestions.setPrefHeight(Math.max(54 * TicketQuestions.ticketNumbers.size(), 866));
+            drawQuestion(0);
+        }
+
+        public void drawQuestion(int question){
+
+            TicketWithAnswersEntity ticketQuestions = ticketEndEntity.getTicket(question);
+
+            labelNumberQuestion.setText("Вопрос #" + (question + 1));
+            labelTextQuestion.setText(ticketQuestions.getText());
+
+            paneTicket.getChildren().clear();
+
+            int value = 5;
+            for(TicketAnswersEntity ticketAnswersEntity : ticketQuestions.getAnswers()){
+
+                Text text = new Text(ticketAnswersEntity.getText());
+                text.setWrappingWidth(ticketQuestions.getPhoto() != null ? 416 : 765);
+                text.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+
+                Pane pane = new Pane();
+                pane.setLayoutX(ticketQuestions.getPhoto() != null ? 654 : 0);
+                pane.setLayoutY(value);
+                pane.setPrefWidth(ticketQuestions.getPhoto() != null ? 462 : 811);
+                pane.setPrefHeight(text.getLayoutBounds().getHeight() + 26);
+                pane.setStyle("-fx-background-color: #141414; -fx-background-radius: 25px");
+
+                Label label = new Label(ticketAnswersEntity.getText());
+                label.setWrapText(true);
+                label.setLayoutX(25);
+                label.setLayoutY(6);
+                label.setPrefWidth(text.getLayoutBounds().getWidth());
+                label.setPrefHeight(text.getLayoutBounds().getHeight() + 15);
+                label.setTextFill(
+                        Paint.valueOf(
+                                ticketQuestions.getCorrect() == ticketAnswersEntity.getNumber() ? (ticketQuestions.getAnswer() != null ? "#078029" : "#dab55e") :
+                                ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() == ticketAnswersEntity.getNumber() ?
+                                        "#5c0808" : "#909090"));
+                label.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                pane.getChildren().add(label);
+
+                value += pane.getPrefHeight() + 10;
+                paneTicket.getChildren().add(pane);
+            }
+
+            Pane paneBack = new Pane();
+            paneBack.setPrefWidth(132);
+            paneBack.setPrefHeight(44);
+            paneBack.setStyle("-fx-background-color: #141414");
+            paneBack.setVisible(question != 0);
+
+            Label labelBack = new Label("« Назад");
+            labelBack.setLayoutX(26);
+            labelBack.setLayoutY(11);
+            labelBack.setPrefWidth(76);
+            labelBack.setPrefHeight(23);
+            labelBack.setFont(Font.font("Monospaced", FontWeight.BOLD, 18));
+            labelBack.setTextFill(Paint.valueOf("#9e9e9e"));
+            paneBack.getChildren().add(labelBack);
+
+            Pane paneNext = new Pane();
+            paneNext.setPrefWidth(132);
+            paneNext.setPrefHeight(44);
+            paneNext.setStyle("-fx-background-color: #141414");
+
+            Label labelNext = new Label("Далее »");
+            labelNext.setLayoutX(26);
+            labelNext.setLayoutY(11);
+            labelNext.setPrefWidth(76);
+            labelNext.setPrefHeight(23);
+            labelNext.setFont(Font.font("Monospaced", FontWeight.BOLD, 18));
+            labelNext.setTextFill(Paint.valueOf("#9e9e9e"));
+            paneNext.getChildren().add(labelNext);
+
+            if(ticketQuestions.getPhoto() != null) {
+
+                ImageView imageView = new ImageView(new Image(ticketQuestions.getPhoto()));
+                imageView.setLayoutX(0);
+                imageView.setLayoutY(0);
+                imageView.setFitWidth(635);
+                imageView.setFitHeight(446);
+                paneTicket.getChildren().add(imageView);
+
+            }
+
+            paneBack.setLayoutY(value + 10);
+            paneNext.setLayoutY(value + 10);
+
+            paneBack.setLayoutX(ticketQuestions.getPhoto() != null ? 654 : 0);
+            paneNext.setLayoutX(paneBack.isVisible() ?
+                    (ticketQuestions.getPhoto() != null ? paneBack.getLayoutX() + 325 : paneBack.getLayoutX() + 675) :
+                    ticketQuestions.getPhoto() != null ? 654 : 0);
+            paneTicket.getChildren().addAll(paneBack, paneNext);
+
+            paneBack.setOnMouseEntered(event -> {
+                paneBack.setStyle("-fx-background-color: #121212");
+                paneBack.setLayoutY(paneBack.getLayoutY() - 1);
+            });
+            paneBack.setOnMouseExited(event -> {
+                paneBack.setStyle("-fx-background-color: #141414");
+                paneBack.setLayoutY(paneBack.getLayoutY() + 1);
+            });
+            paneBack.setOnMouseClicked(event -> {
+                drawQuestion(question - 1);
+            });
+
+            paneNext.setOnMouseEntered(event -> {
+                paneNext.setStyle("-fx-background-color: #121212");
+                paneNext.setLayoutY(paneNext.getLayoutY() - 1);
+            });
+            paneNext.setOnMouseExited(event -> {
+                paneNext.setStyle("-fx-background-color: #141414");
+                paneNext.setLayoutY(paneNext.getLayoutY() + 1);
+            });
+            paneNext.setOnMouseClicked(event -> {
+                drawQuestion(question + 1);
+            });
+
         }
 
     }

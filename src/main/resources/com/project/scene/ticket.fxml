@@ -52,33 +52,27 @@
                   <Font name="Consolas" size="14.0" />
                </font>
             </Label>
-            <Pane layoutX="273.0" layoutY="842.0" prefHeight="44.0" prefWidth="858.0" style="-fx-background-color: #141414;">
+            <Pane layoutX="273.0" layoutY="835.0" prefHeight="51.0" prefWidth="858.0" style="-fx-background-color: #141414;">
                <children>
-                  <Pane layoutX="8.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
-                  <Label layoutX="38.0" layoutY="8.0" text="- выбранный ответ" textFill="#949393">
+                  <Pane layoutX="8.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
+                  <Label layoutX="40.0" layoutY="27.0" text="- выбранный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="188.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
-                  <Pane layoutX="380.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #cdb710;" />
-                  <Pane layoutX="667.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #5c0808;" />
-                  <Label layoutX="227.0" layoutY="8.0" text="- правильный ответ" textFill="#949393">
+                  <Pane layoutX="328.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
+                  <Pane layoutX="674.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #5c0808;" />
+                  <Label layoutX="365.0" layoutY="27.0" text="- правильный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="408.0" layoutY="8.0" prefHeight="17.0" prefWidth="235.0" text="- отмеченный, неправильный ответ" textAlignment="CENTER" textFill="#949393" wrapText="true">
+                  <Label layoutX="701.0" layoutY="27.0" text="- неправильный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="701.0" layoutY="8.0" text="- неправильный ответ" textFill="#949393">
-                     <font>
-                        <Font name="Consolas Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="10.0" layoutY="25.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#949393" wrapText="true">
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="4.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#949393" wrapText="true">
                      <font>
                         <Font name="Consolas Bold" size="12.0" />
                      </font>

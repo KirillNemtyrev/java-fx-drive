@@ -21,7 +21,11 @@ public class API {
     public static final String host = "http://127.0.0.1:8745/";
     private final int codeOk = 200;
 
-    private String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjU5NjIzMTc2LCJleHAiOjE2NjAyMjc5NzZ9.vJX-VRYSvPlnKHxOZWyxc6y4kk4MI9f6vbZbda2K9CdbMt-hHMGxMEVyb1mcpqAAO8wX49OdHU_TavEgeVTRmQ";
+    private String token;
+
+    public String getToken(){
+        return token;
+    }
 
     public API(){}
 

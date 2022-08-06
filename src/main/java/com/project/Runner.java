@@ -11,11 +11,7 @@ public class Runner extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        API api = new API();
-        TicketEntity ticketEntity = api.startTicket();
-
-        TicketController ticketController = new TicketController(ticketEntity);
-        ticketController.setTicketEntity(ticketEntity);
+        TicketController ticketController = new TicketController("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjU5NjIzMTc2LCJleHAiOjE2NjAyMjc5NzZ9.vJX-VRYSvPlnKHxOZWyxc6y4kk4MI9f6vbZbda2K9CdbMt-hHMGxMEVyb1mcpqAAO8wX49OdHU_TavEgeVTRmQ");
         ticketController.start(stage);
     }
 
