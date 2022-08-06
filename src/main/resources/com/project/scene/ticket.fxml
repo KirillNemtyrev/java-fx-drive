@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.controllers.TicketController">
+   <children>
+      <Pane fx:id="panePanel" prefHeight="31.0" prefWidth="1280.0" style="-fx-background-color: #111111;">
+         <children>
+            <ImageView fx:id="imageClose" fitHeight="38.0" fitWidth="31.0" layoutX="1250.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/panel/close.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageCollapse" fitHeight="38.0" fitWidth="31.0" layoutX="1219.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/panel/collapse.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="14.0" layoutY="8.0" text="Правила Дорожного Движения, Казахстан" textFill="#a49e9e">
+               <font>
+                  <Font name="Consolas Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="31.0" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: #191919;">
+         <children>
+            <ScrollPane fx:id="scrollPaneQuestions" layoutX="14.0" layoutY="12.0" pannable="true" prefHeight="867.0" prefWidth="71.0" style="-fx-background-color: transparent; -fx-border-color: black;" stylesheets="@../styles/scrollPane.css" vbarPolicy="NEVER">
+              <content>
+                <AnchorPane fx:id="anchorPaneQuestions" minHeight="0.0" minWidth="0.0" prefHeight="867.0" prefWidth="67.0" style="-fx-background-color: #161616;" />
+              </content>
+            </ScrollPane>
+            <Label fx:id="labelNumberQuestion" layoutX="112.0" layoutY="14.0" text="Вопрос #40" textFill="#c3bcbc">
+               <font>
+                  <Font name="Consolas" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelTextQuestion" layoutX="112.0" layoutY="42.0" prefHeight="44.0" prefWidth="1144.0" text="Если габаритная высота Вашего транспортного средства (с грузом или без груза) больше, указанной на данном дорожном знаке:" textFill="#c3bcbc" wrapText="true">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <Pane fx:id="paneTicket" layoutX="112.0" layoutY="86.0" prefHeight="774.0" prefWidth="1144.0" />
+            <Label fx:id="labelAnswered" layoutX="250.0" layoutY="24.0" prefWidth="39.0" text="0/40" textFill="#978f8f">
+               <font>
+                  <Font name="Consolas" size="14.0" />
+               </font>
+            </Label>
+            <Pane layoutX="273.0" layoutY="842.0" prefHeight="44.0" prefWidth="858.0" style="-fx-background-color: #141414;">
+               <children>
+                  <Pane layoutX="8.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
+                  <Label layoutX="38.0" layoutY="8.0" text="- выбранный ответ" textFill="#949393">
+                     <font>
+                        <Font name="Consolas Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="188.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
+                  <Pane layoutX="380.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #cdb710;" />
+                  <Pane layoutX="667.0" layoutY="8.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #5c0808;" />
+                  <Label layoutX="227.0" layoutY="8.0" text="- правильный ответ" textFill="#949393">
+                     <font>
+                        <Font name="Consolas Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="408.0" layoutY="8.0" prefHeight="17.0" prefWidth="235.0" text="- отмеченный, неправильный ответ" textAlignment="CENTER" textFill="#949393" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="701.0" layoutY="8.0" text="- неправильный ответ" textFill="#949393">
+                     <font>
+                        <Font name="Consolas Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="25.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#949393" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="paneEndTicket" layoutX="1131.0" layoutY="9.0" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #121212;">
+               <children>
+                  <Label layoutX="17.0" layoutY="4.0" text="Завершить" textFill="#b9b4b4">
+                     <font>
+                        <Font name="Monospaced Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>
