@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -56,6 +57,19 @@ public class TicketController extends Application {
 
     @FXML
     private Pane paneEndTicket;
+
+    /* Variables for FXML close ticket menu */
+    @FXML
+    private Group groupCloseMenuTicket;
+
+    @FXML
+    private Pane paneCloseTicket;
+
+    @FXML
+    private Pane paneBackgroundClose;
+
+    @FXML
+    private ImageView imageCloseMenuEnd;
 
 
     private double offsetPosX;
@@ -107,6 +121,8 @@ public class TicketController extends Application {
 
         new ActionPanel();
         new TicketQuestions(40);
+
+        new CloseTicketMenu();
     }
 
 
@@ -167,6 +183,7 @@ public class TicketController extends Application {
 
         public static List<TicketNumbers> ticketNumbers = new ArrayList<>();
         public static Long[] answers = new Long[40];
+        public static int currentQuestion = 0;
         private Label labelChoise;
 
         public TicketQuestions(){
@@ -193,7 +210,13 @@ public class TicketController extends Application {
                 int number = temp;
                 pane.setOnMouseEntered(event -> pane.setStyle("-fx-background-color: #111111"));
                 pane.setOnMouseExited(event -> pane.setStyle("-fx-background-color: #141414"));
-                pane.setOnMouseClicked(event -> selectQuestion(number));
+                pane.setOnMouseClicked(event -> {
+                    if(currentQuestion == number){
+                        return;
+                    }
+
+                    selectQuestion(number);
+                });
                 anchorPaneQuestions.getChildren().add(pane);
 
                 Label label = new Label(String.valueOf(temp + 1));
@@ -211,8 +234,6 @@ public class TicketController extends Application {
 
             anchorPaneQuestions.setPrefHeight(Math.max(54 * count, 866));
             selectQuestion(0);
-
-            paneEndTicket.setOnMouseClicked(event -> new CloseTicket());
         }
 
         /**
@@ -222,6 +243,7 @@ public class TicketController extends Application {
         @FXML
         public void selectQuestion(int question){
 
+            currentQuestion = question;
             labelChoise = null;
 
             TicketQuestionsEntity ticketQuestions = ticketEntity.getTicket(question);
@@ -389,6 +411,7 @@ public class TicketController extends Application {
     public class CloseTicket{
 
         private TicketEndEntity ticketEndEntity;
+        public static int currentQuestion = 0;
 
         public CloseTicket(){
 
@@ -407,10 +430,17 @@ public class TicketController extends Application {
                 TicketQuestions.ticketNumbers.get(temp).getLabel().setTextFill(
                         Paint.valueOf(
                                 ticketQuestions.getCorrect() == ticketQuestions.getAnswer() ? "#078029" :
-                                        ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() != null ? "#5c0808" : "#dab55e"));
+                                        ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() != null ? "#ae1b1b" : "#dab55e"));
 
                 int number = temp;
-                TicketQuestions.ticketNumbers.get(temp).getPane().setOnMouseClicked(event -> drawQuestion(number));
+                TicketQuestions.ticketNumbers.get(temp).getPane().setOnMouseClicked(event -> {
+
+                    if(currentQuestion == number){
+                        return;
+                    }
+
+                    drawQuestion(number);
+                });
 
             }
 
@@ -419,6 +449,8 @@ public class TicketController extends Application {
         }
 
         public void drawQuestion(int question){
+
+            currentQuestion = question;
 
             TicketWithAnswersEntity ticketQuestions = ticketEndEntity.getTicket(question);
 
@@ -451,7 +483,7 @@ public class TicketController extends Application {
                         Paint.valueOf(
                                 ticketQuestions.getCorrect() == ticketAnswersEntity.getNumber() ? (ticketQuestions.getAnswer() != null ? "#078029" : "#dab55e") :
                                 ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() == ticketAnswersEntity.getNumber() ?
-                                        "#5c0808" : "#909090"));
+                                        "#ae1b1b" : "#909090"));
                 label.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
                 pane.getChildren().add(label);
 
@@ -486,6 +518,7 @@ public class TicketController extends Application {
             labelNext.setPrefHeight(23);
             labelNext.setFont(Font.font("Monospaced", FontWeight.BOLD, 18));
             labelNext.setTextFill(Paint.valueOf("#9e9e9e"));
+            paneNext.setVisible(question != 39);
             paneNext.getChildren().add(labelNext);
 
             if(ticketQuestions.getPhoto() != null) {
@@ -530,6 +563,69 @@ public class TicketController extends Application {
             });
             paneNext.setOnMouseClicked(event -> {
                 drawQuestion(question + 1);
+            });
+
+            Text textCorrect = new Text("Правильный ответ, вариант №" + ticketQuestions.getCorrect());
+            textCorrect.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+
+            Text textExplanation = new Text(ticketQuestions.getExplanation());
+            textExplanation.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+            textExplanation.setWrappingWidth(1119);
+
+            Label labelCorrect = new Label("Правильный ответ, вариант №" + ticketQuestions.getCorrect());
+            labelCorrect.setLayoutX(14);
+            labelCorrect.setLayoutY(ticketQuestions.getPhoto() != null ? 470 : paneNext.getLayoutY() + 75);
+            labelCorrect.setPrefWidth(textCorrect.getLayoutBounds().getWidth());
+            labelCorrect.setPrefHeight(textCorrect.getLayoutBounds().getHeight());
+            labelCorrect.setTextFill(Paint.valueOf("#c3bcbc"));
+            labelCorrect.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+
+            Label labelExplanation = new Label(ticketQuestions.getExplanation());
+            labelExplanation.setWrapText(true);
+            labelExplanation.setLayoutX(14);
+            labelExplanation.setLayoutY(labelCorrect.getLayoutY() + 30);
+            labelExplanation.setPrefWidth(textExplanation.getLayoutBounds().getWidth());
+            labelExplanation.setPrefHeight(textExplanation.getLayoutBounds().getHeight() + 15);
+            labelExplanation.setTextFill(Paint.valueOf("#c3bcbc"));
+            labelExplanation.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+
+            paneTicket.getChildren().addAll(labelCorrect, labelExplanation);
+
+        }
+
+    }
+
+    public class CloseTicketMenu {
+
+        public CloseTicketMenu(){
+
+            paneEndTicket.setOnMouseEntered(event -> paneEndTicket.setStyle("-fx-background-color: #101010"));
+            paneEndTicket.setOnMouseExited(event -> paneEndTicket.setStyle("-fx-background-color: #141414"));
+            paneEndTicket.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(true));
+            paneBackgroundClose.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(false));
+
+            imageCloseMenuEnd.setOnMouseEntered(event -> imageCloseMenuEnd.setOpacity(1.0));
+            imageCloseMenuEnd.setOnMouseExited(event -> imageCloseMenuEnd.setOpacity(0.5));
+            imageCloseMenuEnd.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(false));
+
+            actionWithCloseTicket();
+        }
+
+        public void actionWithCloseTicket(){
+
+            paneCloseTicket.setOnMouseEntered(event -> {
+                paneCloseTicket.setLayoutY(paneCloseTicket.getLayoutY() - 1);
+                paneCloseTicket.setStyle("-fx-background-color: #080808");
+            });
+
+            paneCloseTicket.setOnMouseExited(event -> {
+                paneCloseTicket.setLayoutY(paneCloseTicket.getLayoutY() + 1);
+                paneCloseTicket.setStyle("-fx-background-color: #111111");
+            });
+
+            paneCloseTicket.setOnMouseClicked(event -> {
+                new CloseTicket();
+                groupCloseMenuTicket.setVisible(false);
             });
 
         }

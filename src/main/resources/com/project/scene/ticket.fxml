@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -54,32 +55,38 @@
             </Label>
             <Pane layoutX="273.0" layoutY="835.0" prefHeight="51.0" prefWidth="858.0" style="-fx-background-color: #141414;">
                <children>
-                  <Pane layoutX="8.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
-                  <Label layoutX="40.0" layoutY="27.0" text="- выбранный ответ" textFill="#949393">
+                  <Pane layoutX="8.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
+                  <Label layoutX="40.0" layoutY="29.0" text="- выбранный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="328.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
-                  <Pane layoutX="674.0" layoutY="27.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #5c0808;" />
-                  <Label layoutX="365.0" layoutY="27.0" text="- правильный ответ" textFill="#949393">
+                  <Pane layoutX="216.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
+                  <Pane layoutX="430.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #ae1b1b;" />
+                  <Label layoutX="249.0" layoutY="29.0" text="- правильный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="701.0" layoutY="27.0" text="- неправильный ответ" textFill="#949393">
+                  <Label layoutX="463.0" layoutY="29.0" text="- неправильный ответ" textFill="#949393">
                      <font>
                         <Font name="Consolas Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="10.0" layoutY="4.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#949393" wrapText="true">
+                  <Label alignment="CENTER" layoutX="10.0" layoutY="4.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#8f8f8f" wrapText="true">
                      <font>
                         <Font name="Consolas Bold" size="12.0" />
                      </font>
                   </Label>
+                  <Pane layoutX="658.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #dab55e;" />
+                  <Label layoutX="693.0" layoutY="29.0" text="- не отмеченный ответ" textFill="#949393">
+                     <font>
+                        <Font name="Consolas Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
-            <Pane fx:id="paneEndTicket" layoutX="1131.0" layoutY="9.0" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #121212;">
+            <Pane fx:id="paneEndTicket" layoutX="1131.0" layoutY="9.0" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #141414;">
                <children>
                   <Label layoutX="17.0" layoutY="4.0" text="Завершить" textFill="#b9b4b4">
                      <font>
@@ -88,6 +95,61 @@
                   </Label>
                </children>
             </Pane>
+            <Group fx:id="groupCloseMenuTicket" visible="false">
+               <children>
+                  <Pane fx:id="paneBackgroundClose" opacity="0.75" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: black;" />
+                  <Pane layoutX="500.0" layoutY="250.0" prefHeight="271.0" prefWidth="302.0" style="-fx-background-color: #141414;">
+                     <children>
+                        <Pane fx:id="paneCloseTicket" layoutX="14.0" layoutY="62.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #111111;">
+                           <children>
+                              <Label layoutX="75.0" layoutY="7.0" text="Завершить тест" textFill="#807d7d">
+                                 <font>
+                                    <Font name="Consolas Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneRetryTicket" layoutX="14.0" layoutY="105.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #111111;">
+                           <children>
+                              <Label layoutX="58.0" layoutY="7.0" text="Начать тест заного" textFill="#807d7d">
+                                 <font>
+                                    <Font name="Consolas Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneNewTicket" layoutX="14.0" layoutY="150.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #111111;">
+                           <children>
+                              <Label layoutX="93.0" layoutY="7.0" text="Новый тест" textFill="#807d7d">
+                                 <font>
+                                    <Font name="Consolas Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneBackLobby" layoutX="14.0" layoutY="226.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #400101;">
+                           <children>
+                              <Label layoutX="115.0" layoutY="7.0" text="Выйти" textFill="#7c7c7c">
+                                 <font>
+                                    <Font name="Consolas Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Label layoutX="76.0" layoutY="23.0" text="Завершение теста" textFill="#aeadad">
+                           <font>
+                              <Font name="Consolas Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="imageCloseMenuEnd" fitHeight="31.0" fitWidth="31.0" layoutX="270.0" layoutY="1.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/panel/close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Group>
          </children>
       </Pane>
    </children>
