@@ -6,6 +6,7 @@ public class TicketEntity {
     private String uuid;
     private Date dateStart;
     private Date dateEnd;
+    private Long attempts;
     private TicketQuestionsEntity[] ticket;
 
     public String getUuid() {
@@ -26,5 +27,9 @@ public class TicketEntity {
 
     public TicketQuestionsEntity getTicket(int index){
         return ticket[index];
+    }
+
+    public Long getAttempts() {
+        return attempts;
     }
 }

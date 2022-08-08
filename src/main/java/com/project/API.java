@@ -6,6 +6,7 @@ import com.project.entity.TicketEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -93,6 +94,40 @@ public class API {
                 stringBuffer.append(lineForBuffer);
             }
             return new Gson().fromJson(stringBuffer.toString(), TicketEndEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * This function is used to retake the test.
+     * @param uuid
+     * @return
+     */
+
+    public TicketEntity retryTicket(String uuid){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"uuid\" :\"" + uuid + "\"}";
+            HttpPut request = new HttpPut(host + "api/ticket/retry");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+            if(response.getStatusLine().getStatusCode() != codeOk) return null;
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Gson().fromJson(stringBuffer.toString(), TicketEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
