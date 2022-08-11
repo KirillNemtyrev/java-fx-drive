@@ -1,8 +1,11 @@
 package com.project;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.project.entity.StatisticEntity;
 import com.project.entity.TicketEndEntity;
 import com.project.entity.TicketEntity;
+import com.project.entity.TicketHistoryEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class API {
 
@@ -128,6 +132,68 @@ public class API {
                 stringBuffer.append(lineForBuffer);
             }
             return new Gson().fromJson(stringBuffer.toString(), TicketEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * This function returns user statistics.
+     * @return StatisticEntity
+     */
+
+    public StatisticEntity getStatistic(){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpGet request = new HttpGet(host + "api/statistic");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+            if(response.getStatusLine().getStatusCode() != codeOk) return null;
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Gson().fromJson(stringBuffer.toString(), StatisticEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * This function is used to return ticket history.
+     * @return TicketHistoryEntity
+     */
+
+    public List<TicketHistoryEntity> getHistory(){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpGet request = new HttpGet(host + "api/ticket/history");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+            if(response.getStatusLine().getStatusCode() != codeOk) return null;
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Gson().fromJson(stringBuffer.toString(), new TypeToken<List<TicketHistoryEntity>>() {}.getType());
         } catch (IOException e) {
             e.printStackTrace();
             return null;

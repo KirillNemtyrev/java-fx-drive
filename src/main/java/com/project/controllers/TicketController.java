@@ -371,6 +371,9 @@ public class TicketController extends Application {
         @FXML
         public void selectQuestion(int question){
 
+            ticketNumbers.get(currentQuestion).getPane().setStyle("-fx-background-color: #141414");
+            ticketNumbers.get(question).getPane().setStyle("-fx-background-color: #080808");
+
             currentQuestion = question;
             labelChoise = null;
 
@@ -629,8 +632,10 @@ public class TicketController extends Application {
                                         ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() != null ? "#ae1b1b" : "#dab55e"));
 
                 int number = temp;
-                TicketQuestions.ticketNumbers.get(number).getPane().setOnMouseEntered(event -> TicketQuestions.ticketNumbers.get(number).getPane().setStyle("-fx-background-color: " + (currentQuestion == number ? "#050505" : "#111111")));
-                TicketQuestions.ticketNumbers.get(number).getPane().setOnMouseExited(event -> TicketQuestions.ticketNumbers.get(number).getPane().setStyle("-fx-background-color: " + (currentQuestion == number ? "#080808" : "#141414")));
+                TicketQuestions.ticketNumbers.get(number).getPane().setOnMouseEntered(event ->
+                        TicketQuestions.ticketNumbers.get(number).getPane().setStyle("-fx-background-color: " + (currentQuestion == number ? "#050505" : "#111111")));
+                TicketQuestions.ticketNumbers.get(number).getPane().setOnMouseExited(event ->
+                        TicketQuestions.ticketNumbers.get(number).getPane().setStyle("-fx-background-color: " + (currentQuestion == number ? "#080808" : "#141414")));
                 TicketQuestions.ticketNumbers.get(temp).getPane().setOnMouseClicked(event -> {
 
                     if(currentQuestion == number){
@@ -651,6 +656,9 @@ public class TicketController extends Application {
         }
 
         public void drawQuestion(int question){
+
+            TicketQuestions.ticketNumbers.get(currentQuestion).getPane().setStyle("-fx-background-color: #141414");
+            TicketQuestions.ticketNumbers.get(question).getPane().setStyle("-fx-background-color: #080808");
 
             currentQuestion = question;
 
@@ -804,7 +812,7 @@ public class TicketController extends Application {
         public TaskTimer(){}
         public TaskTimer(Date dateStart, Date dateEnd){
 
-            time = (dateEnd.getTime() - dateStart.getTime()) / 1000;
+             time = (dateEnd.getTime() - dateStart.getTime()) / 1000;
 
         }
 
