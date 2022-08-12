@@ -101,7 +101,7 @@
                         <Font name="Consolas Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="108.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 150px;" />
+                  <Pane layoutX="139.0" layoutY="150.0" prefHeight="136.0" prefWidth="136.0" style="-fx-background-color: white; -fx-background-radius: 150px;" />
                   <PieChart fx:id="pieChartStatistic" animated="false" layoutX="30.0" layoutY="80.0" prefHeight="305.0" prefWidth="355.0" snapToPixel="false" startAngle="30.0" titleSide="BOTTOM">
                      <effect>
                         <DisplacementMap>
@@ -145,6 +145,86 @@
                <effect>
                   <DropShadow />
                </effect>
+            </Pane>
+            <Pane fx:id="paneTicket" layoutX="640.0" layoutY="85.0" prefHeight="354.0" prefWidth="616.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Pane fx:id="paneStartTicket" layoutX="195.0" layoutY="45.0" prefHeight="48.0" prefWidth="226.0" style="-fx-background-color: #101010; -fx-background-radius: 25px;">
+                     <children>
+                        <Label layoutX="19.0" layoutY="13.0" text="Начать тестирование" textFill="#838181">
+                           <font>
+                              <Font name="Consolas Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Label layoutX="167.0" layoutY="5.0" text="Билеты взяты с safety-driving.kz" textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="167.0" layoutY="112.0" text="Билет содержит в себе 40 вопросов." textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="149.0" layoutY="130.0" text="На каждый билет даётся время 40 минут." textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="48.0" layoutY="148.0" text="По истечению этого времени тест будет автоматически завершён." textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="57.0" layoutY="164.0" prefHeight="48.0" prefWidth="501.0" text="В случае закрытия окна с билетами, билет считается как &quot;Не отправленный&quot;." textAlignment="CENTER" textFill="#838181" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="84.0" layoutY="220.0" prefHeight="48.0" prefWidth="448.0" text="При досрочном завершении билета, нажмите на кнопку &quot;Завершить&quot; -&gt; &quot;Завершить тест&quot;." textAlignment="CENTER" textFill="#838181" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="13.0" layoutY="289.0" text="Количество попыток не ограниченно. Засчитывается последняя попытка." textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="13.0" layoutY="307.0" prefHeight="41.0" prefWidth="589.0" text="Тест можно перерешать в любой момент. Можно выбрать тест из истории из перерешать его." textAlignment="CENTER" textFill="#838181" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="paneSettings" layoutX="904.0" layoutY="26.0" prefHeight="41.0" prefWidth="131.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Label layoutX="21.0" layoutY="10.0" text="Настройки" textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="paneExitAccount" layoutX="1049.0" layoutY="26.0" prefHeight="41.0" prefWidth="207.0" style="-fx-background-color: #570303; -fx-background-radius: 25px;">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Label layoutX="19.0" layoutY="10.0" text="Выйти из аккаунта" textFill="#838181">
+                     <font>
+                        <Font name="Consolas Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
             </Pane>
          </children>
       </Pane>

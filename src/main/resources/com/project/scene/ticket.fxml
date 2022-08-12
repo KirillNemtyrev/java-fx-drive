@@ -149,7 +149,7 @@
                               <Font name="Consolas Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Pane fx:id="paneResultBackLobby" layoutX="12.0" layoutY="289.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #400101;">
+                        <Pane fx:id="paneResultBackLobby" layoutX="12.0" layoutY="289.0" prefHeight="31.0" prefWidth="274.0" style="-fx-background-color: #400000;">
                            <children>
                               <Label layoutX="115.0" layoutY="7.0" text="Выйти" textFill="#7c7c7c">
                                  <font>

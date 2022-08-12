@@ -70,6 +70,11 @@ public class LobbyController extends Application {
 
     @FXML
     private AnchorPane anchorPaneHistory;
+    
+    /*Variabels for FXML start ticket */
+    
+    @FXML
+    private Pane paneStartTicket;
 
     private double offsetPosX;
     private double offsetPosY;
@@ -89,7 +94,6 @@ public class LobbyController extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 920);
         stage.setResizable(false);
         stage.setTitle("Alpha Test");
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
 
@@ -113,6 +117,7 @@ public class LobbyController extends Application {
 
         new ActionPanel();
         new Statistic();
+        new Ticket();
 
     }
 
@@ -185,8 +190,9 @@ public class LobbyController extends Application {
 
             PieChart.Data pieChartPass = new PieChart.Data("Сдал", statisticEntity.getTicket().getResolved());
             PieChart.Data pieChartNotPass = new PieChart.Data("Не сдал", statisticEntity.getTicket().getUnresolved());
+            PieChart.Data pieChartNotEnd = new PieChart.Data("Не отправлен", statisticEntity.getTicket().getUndelivered());
 
-            pieChartStatistic.getData().addAll(pieChartPass, pieChartNotPass);
+            pieChartStatistic.getData().addAll(pieChartPass, pieChartNotPass, pieChartNotEnd);
 
             circlePhoto.setFill(new ImagePattern(new Image(statisticEntity.getPhoto())));
             labelName.setText(statisticEntity.getName());
@@ -289,6 +295,36 @@ public class LobbyController extends Application {
 
         }
 
+    }
+    
+    public class Ticket{
+        
+        public Ticket(){
+
+            paneStartTicket.setOnMouseEntered(event -> {
+                paneStartTicket.setLayoutY(paneStartTicket.getLayoutY() - 1);
+                paneStartTicket.setStyle("-fx-background-color: #080808; -fx-background-radius: 25px");
+            });
+
+            paneStartTicket.setOnMouseExited(event -> {
+                paneStartTicket.setLayoutY(paneStartTicket.getLayoutY() + 1);
+                paneStartTicket.setStyle("-fx-background-color: #101010; -fx-background-radius: 25px");
+            });
+
+            paneStartTicket.setOnMouseClicked(event -> {
+
+                Stage stage = (Stage) paneStartTicket.getScene().getWindow();
+                stage.close();
+                try {
+                    new TicketController(api.getToken()).start(stage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+            
+        }
+        
     }
 
 }

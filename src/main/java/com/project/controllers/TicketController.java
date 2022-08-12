@@ -109,6 +109,12 @@ public class TicketController extends Application {
     @FXML
     private Pane paneResultTicket;
 
+    @FXML
+    private Pane paneBackLobby;
+
+    @FXML
+    private Pane paneResultBackLobby;
+
     /* Variables for FXML timer */
     @FXML
     private Label labelTicketTime;
@@ -141,7 +147,7 @@ public class TicketController extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 920);
         stage.setResizable(false);
         stage.setTitle("Alpha Test");
-        stage.initStyle(StageStyle.UNDECORATED);
+        //stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
 
@@ -318,6 +324,27 @@ public class TicketController extends Application {
                 ticketEntity = api.startTicket();
 
                 new TicketQuestions(40);
+            });
+
+            paneBackLobby.setOnMouseEntered(event -> {
+                paneBackLobby.setLayoutY(paneBackLobby.getLayoutY() - 1);
+                paneBackLobby.setStyle("-fx-background-color: #390202");
+            });
+            paneBackLobby.setOnMouseExited(event -> {
+                paneBackLobby.setLayoutY(paneBackLobby.getLayoutY() + 1);
+                paneBackLobby.setStyle("-fx-background-color: #400000");
+            });
+            paneBackLobby.setOnMouseClicked(event -> {
+
+                Stage stage = (Stage) paneBackLobby.getScene().getWindow();
+                stage.close();
+
+                try {
+                    new LobbyController(api.getToken()).start(stage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             });
 
             for(int temp = 0; temp < count; temp++){
@@ -617,6 +644,27 @@ public class TicketController extends Application {
                 paneResultRetryTicket.setStyle("-fx-background-color: #111111");
             });
 
+            paneResultBackLobby.setOnMouseEntered(event -> {
+                paneResultBackLobby.setLayoutY(paneResultBackLobby.getLayoutY() - 1);
+                paneResultBackLobby.setStyle("-fx-background-color: #390202");
+            });
+            paneResultBackLobby.setOnMouseExited(event -> {
+                paneResultBackLobby.setLayoutY(paneResultBackLobby.getLayoutY() + 1);
+                paneResultBackLobby.setStyle("-fx-background-color: #400000");
+            });
+            paneResultBackLobby.setOnMouseClicked(event -> {
+
+                Stage stage = (Stage) paneResultBackLobby.getScene().getWindow();
+                stage.close();
+
+                try {
+                    new LobbyController(api.getToken()).start(stage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+
             TicketQuestions();
 
         }
@@ -784,7 +832,7 @@ public class TicketController extends Application {
 
             Label labelCorrect = new Label("Правильный ответ, вариант №" + ticketQuestions.getCorrect());
             labelCorrect.setLayoutX(14);
-            labelCorrect.setLayoutY(ticketQuestions.getPhoto() != null ? 470 : paneNext.getLayoutY() + 75);
+            labelCorrect.setLayoutY(ticketQuestions.getPhoto() != null ? 490 : paneNext.getLayoutY() + 75);
             labelCorrect.setPrefWidth(textCorrect.getLayoutBounds().getWidth());
             labelCorrect.setPrefHeight(textCorrect.getLayoutBounds().getHeight());
             labelCorrect.setTextFill(Paint.valueOf("#c3bcbc"));
