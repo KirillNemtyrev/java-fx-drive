@@ -380,7 +380,7 @@ public class TicketController extends Application {
                 label.setPrefWidth(40);
                 label.setPrefHeight(17);
                 label.setAlignment(Pos.CENTER);
-                label.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+                label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 18));
                 label.setTextFill(Paint.valueOf("#c6c6c6"));
                 pane.getChildren().add(label);
 
@@ -416,7 +416,7 @@ public class TicketController extends Application {
 
                 Text text = new Text(ticketAnswersEntity.getText());
                 text.setWrappingWidth(ticketQuestions.getPhoto() != null ? 416 : 765);
-                text.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                text.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
 
                 Pane pane = new Pane();
                 pane.setLayoutX(ticketQuestions.getPhoto() != null ? 654 : 0);
@@ -432,7 +432,7 @@ public class TicketController extends Application {
                 label.setPrefWidth(text.getLayoutBounds().getWidth());
                 label.setPrefHeight(text.getLayoutBounds().getHeight() + 15);
                 label.setTextFill(Paint.valueOf("#909090"));
-                label.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
                 pane.getChildren().add(label);
 
                 if(answers[question] != null && answers[question] == ticketAnswersEntity.getNumber()){
@@ -513,7 +513,6 @@ public class TicketController extends Application {
                 imageView.setFitWidth(635);
                 imageView.setFitHeight(446);
                 paneTicket.getChildren().add(imageView);
-
             }
 
             paneBack.setLayoutY(value + 10);
@@ -722,7 +721,7 @@ public class TicketController extends Application {
 
                 Text text = new Text(ticketAnswersEntity.getText());
                 text.setWrappingWidth(ticketQuestions.getPhoto() != null ? 416 : 765);
-                text.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                text.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
 
                 Pane pane = new Pane();
                 pane.setLayoutX(ticketQuestions.getPhoto() != null ? 654 : 0);
@@ -742,7 +741,7 @@ public class TicketController extends Application {
                                 ticketQuestions.getCorrect() == ticketAnswersEntity.getNumber() ? (ticketQuestions.getAnswer() != null ? "#078029" : "#dab55e") :
                                 ticketQuestions.getCorrect() != ticketQuestions.getAnswer() && ticketQuestions.getAnswer() == ticketAnswersEntity.getNumber() ?
                                         "#ae1b1b" : "#909090"));
-                label.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                label.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
                 pane.getChildren().add(label);
 
                 value += pane.getPrefHeight() + 10;
@@ -824,10 +823,10 @@ public class TicketController extends Application {
             });
 
             Text textCorrect = new Text("Правильный ответ, вариант №" + ticketQuestions.getCorrect());
-            textCorrect.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+            textCorrect.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
 
             Text textExplanation = new Text(ticketQuestions.getExplanation());
-            textExplanation.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+            textExplanation.setFont(Font.font("Times New Roman", FontWeight.BOLD, 18));
             textExplanation.setWrappingWidth(1119);
 
             Label labelCorrect = new Label("Правильный ответ, вариант №" + ticketQuestions.getCorrect());
@@ -835,8 +834,8 @@ public class TicketController extends Application {
             labelCorrect.setLayoutY(ticketQuestions.getPhoto() != null ? 490 : paneNext.getLayoutY() + 75);
             labelCorrect.setPrefWidth(textCorrect.getLayoutBounds().getWidth());
             labelCorrect.setPrefHeight(textCorrect.getLayoutBounds().getHeight());
-            labelCorrect.setTextFill(Paint.valueOf("#c3bcbc"));
-            labelCorrect.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+            labelCorrect.setTextFill(Paint.valueOf("#908d8d"));
+            labelCorrect.setFont(Font.font("Times New Roman", FontWeight.BOLD, 20));
 
             Label labelExplanation = new Label(ticketQuestions.getExplanation());
             labelExplanation.setWrapText(true);
@@ -844,8 +843,8 @@ public class TicketController extends Application {
             labelExplanation.setLayoutY(labelCorrect.getLayoutY() + 30);
             labelExplanation.setPrefWidth(textExplanation.getLayoutBounds().getWidth());
             labelExplanation.setPrefHeight(textExplanation.getLayoutBounds().getHeight() + 15);
-            labelExplanation.setTextFill(Paint.valueOf("#c3bcbc"));
-            labelExplanation.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+            labelExplanation.setTextFill(Paint.valueOf("#908d8d"));
+            labelExplanation.setFont(Font.font("Times New Roman", FontWeight.BOLD, 18));
 
             paneTicket.getChildren().addAll(labelCorrect, labelExplanation);
 

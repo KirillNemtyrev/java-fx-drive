@@ -194,6 +194,10 @@ public class LobbyController extends Application {
 
             pieChartStatistic.getData().addAll(pieChartPass, pieChartNotPass, pieChartNotEnd);
 
+            pieChartPass.getNode().setStyle("-fx-font: 18 Consolas; -fx-pie-color: #078029; -fx-fill: #8f8f8f");
+            pieChartNotPass.getNode().setStyle("-fx-font: 18 Consolas; -fx-pie-color: #ae1b1b; -fx-fill: #8f8f8f");
+            pieChartNotEnd.getNode().setStyle("-fx-font: 18 Consolas; -fx-pie-color: #dab55e; -fx-fill: #8f8f8f");
+
             circlePhoto.setFill(new ImagePattern(new Image(statisticEntity.getPhoto())));
             labelName.setText(statisticEntity.getName());
 
@@ -212,7 +216,8 @@ public class LobbyController extends Application {
                 title.setLayoutY(427);
                 title.setPrefWidth(347);
                 title.setPrefHeight(22);
-                title.setFont(Font.font("Consolas", FontWeight.BOLD, 18));
+                title.setAlignment(Pos.CENTER);
+                title.setFont(Font.font("Times New Roman", FontWeight.BOLD, 18));
                 title.setTextFill(Paint.valueOf("#9e9e9e"));
 
                 Label description = new Label("После решения билета, он появится тут.");
@@ -220,7 +225,8 @@ public class LobbyController extends Application {
                 description.setLayoutY(449);
                 description.setPrefWidth(335);
                 description.setPrefHeight(18);
-                description.setFont(Font.font("Consolas", FontWeight.BOLD, 16));
+                description.setAlignment(Pos.CENTER);
+                description.setFont(Font.font("Times New Roman", FontWeight.BOLD, 16));
                 description.setTextFill(Paint.valueOf("#797777"));
 
                 anchorPaneHistory.getChildren().addAll(imageView, title, description);
@@ -238,7 +244,6 @@ public class LobbyController extends Application {
             for(int i = 0; i < ticketHistoryEntities.size(); i ++){
 
                 TicketHistoryEntity ticketHistoryEntity = ticketHistoryEntities.get(i);
-                System.out.println();
 
                 Pane pane = new Pane();
                 pane.setLayoutX(0);
@@ -254,8 +259,8 @@ public class LobbyController extends Application {
                 date.setLayoutY(11);
                 date.setPrefWidth(179);
                 date.setPrefHeight(17);
-                date.setFont(Font.font("Consolas", FontWeight.BOLD, 13));
-                date.setAlignment(Pos.CENTER);
+                date.setFont(Font.font("Times New Roman", FontWeight.BOLD, 13));
+                date.setAlignment(Pos.CENTER_LEFT);
                 date.setTextFill(Paint.valueOf("#8d8d8d"));
 
                 Label attempts = new Label(String.valueOf(ticketHistoryEntity.getAttempts()));
@@ -263,7 +268,7 @@ public class LobbyController extends Application {
                 attempts.setLayoutY(11);
                 attempts.setPrefWidth(50);
                 attempts.setPrefHeight(17);
-                attempts.setFont(Font.font("Consolas", FontWeight.BOLD, 13));
+                attempts.setFont(Font.font("Times New Roman", FontWeight.BOLD, 13));
                 attempts.setAlignment(Pos.CENTER);
                 attempts.setTextFill(Paint.valueOf("#8d8d8d"));
 
@@ -272,7 +277,7 @@ public class LobbyController extends Application {
                 currents.setLayoutY(11);
                 currents.setPrefWidth(50);
                 currents.setPrefHeight(17);
-                currents.setFont(Font.font("Consolas", FontWeight.BOLD, 13));
+                currents.setFont(Font.font("Times New Roman", FontWeight.BOLD, 13));
                 currents.setAlignment(Pos.CENTER);
                 currents.setTextFill(Paint.valueOf("#8d8d8d"));
 
@@ -282,7 +287,7 @@ public class LobbyController extends Application {
                 result.setLayoutY(11);
                 result.setPrefWidth(86);
                 result.setPrefHeight(17);
-                result.setFont(Font.font("Consolas", FontWeight.BOLD, 13));
+                result.setFont(Font.font("Times New Roman", FontWeight.BOLD, 13));
                 result.setAlignment(Pos.CENTER);
                 result.setTextFill(Paint.valueOf(ticketHistoryEntity.getTicketResultStatus().equals("TICKET_NOT_END") ? "#dab55e" :
                         ticketHistoryEntity.getTicketResultStatus().equals("TICKET_PASSED") ? "#078029" : "#ae1b1b"));

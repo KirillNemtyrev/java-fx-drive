@@ -27,9 +27,9 @@
                   <Image url="@../images/panel/collapse.png" />
                </image>
             </ImageView>
-            <Label layoutX="14.0" layoutY="8.0" text="Правила Дорожного Движения, Казахстан" textFill="#a49e9e">
+            <Label fx:id="labelVersion" layoutX="14.0" layoutY="7.0" prefHeight="19.0" prefWidth="195.0" text="Подготовка к тестам ПДД" textFill="#a19d9d">
                <font>
-                  <Font name="Consolas Bold" size="14.0" />
+                  <Font name="Times New Roman Bold" size="16.0" />
                </font>
             </Label>
          </children>
@@ -45,22 +45,22 @@
                   </ScrollPane>
                   <Label layoutX="28.0" layoutY="6.0" text="Дата выполнения" textFill="#9e9e9e">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Label layoutX="237.0" layoutY="6.0" text="Попыток" textFill="#9e9e9e">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Label layoutX="345.0" layoutY="6.0" text="Ответов" textFill="#9e9e9e">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Label layoutX="481.0" layoutY="6.0" text="Результат" textFill="#9e9e9e">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -73,36 +73,36 @@
                   <Circle fx:id="circlePhoto" fill="DODGERBLUE" layoutX="41.0" layoutY="38.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label fx:id="labelName" layoutX="74.0" layoutY="16.0" prefHeight="23.0" prefWidth="518.0" text="Немтырев Кирилл Сергеевич" textFill="#9a9595">
                      <font>
-                        <Font name="Monospaced Bold" size="18.0" />
+                        <Font name="Times New Roman Bold" size="20.0" />
                      </font>
                   </Label>
                   <Label layoutX="74.0" layoutY="34.0" prefHeight="23.0" prefWidth="155.0" text="Ваша статистика:" textFill="#6f6c6c">
                      <font>
-                        <Font name="Monospaced Bold" size="16.0" />
+                        <Font name="Times New Roman Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="444.0" layoutY="117.0" prefWidth="116.0" text="Пройдено тестов" textFill="#757272">
+                  <Label layoutX="449.0" layoutY="117.0" prefWidth="116.0" text="Пройдено тестов" textFill="#757272">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelStatisticTotal" alignment="CENTER" layoutX="443.0" layoutY="89.0" prefWidth="119.0" text="1000/1000" textFill="#aea8a8">
+                  <Label fx:id="labelStatisticTotal" alignment="CENTER" layoutX="443.0" layoutY="88.0" prefWidth="119.0" text="1000/1000" textFill="#aea8a8">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Times New Roman Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="444.0" layoutY="172.0" text="Успешных тестов" textFill="#757272">
+                  <Label layoutX="451.0" layoutY="173.0" text="Успешных тестов" textFill="#757272">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Label fx:id="labelStatisticResolved" alignment="CENTER" layoutX="455.0" layoutY="144.0" prefWidth="93.0" text="1000000" textFill="#aea8a8">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Times New Roman Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="139.0" layoutY="150.0" prefHeight="136.0" prefWidth="136.0" style="-fx-background-color: white; -fx-background-radius: 150px;" />
-                  <PieChart fx:id="pieChartStatistic" animated="false" layoutX="30.0" layoutY="80.0" prefHeight="305.0" prefWidth="355.0" snapToPixel="false" startAngle="30.0" titleSide="BOTTOM">
+                  <Pane layoutX="126.0" layoutY="151.0" prefHeight="162.0" prefWidth="162.0" style="-fx-background-color: white; -fx-background-radius: 150px;" />
+                  <PieChart fx:id="pieChartStatistic" animated="false" layoutX="30.0" layoutY="80.0" legendVisible="false" prefHeight="305.0" prefWidth="355.0" snapToPixel="false" startAngle="30.0" titleSide="BOTTOM">
                      <effect>
                         <DisplacementMap>
                            <mapData>
@@ -111,34 +111,34 @@
                         </DisplacementMap>
                      </effect>
                   </PieChart>
-                  <Label layoutX="437.0" layoutY="232.0" text="Не удачных тестов" textFill="#757272">
+                  <Label layoutX="447.0" layoutY="232.0" text="Не удачных тестов" textFill="#757272">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Label fx:id="labelStatisticUnResolved" alignment="CENTER" layoutX="456.0" layoutY="204.0" prefWidth="93.0" text="1000000" textFill="#aea8a8">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Times New Roman Bold" size="25.0" />
                      </font>
                   </Label>
                   <Label fx:id="labelStatisticUnDelivery" alignment="CENTER" layoutX="455.0" layoutY="261.0" prefWidth="93.0" text="1000000" textFill="#aea8a8">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Times New Roman Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="437.0" layoutY="289.0" text="Не решенных тестов" textFill="#757272">
+                  <Label layoutX="442.0" layoutY="290.0" text="Не решенных тестов" textFill="#757272">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelStatisticProbality" alignment="CENTER" layoutX="455.0" layoutY="318.0" prefWidth="93.0" text="100.01%" textFill="#aea8a8">
+                  <Label fx:id="labelStatisticProbality" alignment="CENTER" layoutX="455.0" layoutY="318.0" prefHeight="29.0" prefWidth="101.0" text="100.01%" textFill="#aea8a8">
                      <font>
-                        <Font name="Consolas Bold" size="24.0" />
+                        <Font name="Times New Roman Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="418.0" layoutY="346.0" text="Вероятный процент сдачи" textFill="#757272">
+                  <Label layoutX="423.0" layoutY="347.0" text="Вероятный процент сдачи" textFill="#757272">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -151,53 +151,65 @@
                   <DropShadow />
                </effect>
                <children>
-                  <Pane fx:id="paneStartTicket" layoutX="195.0" layoutY="45.0" prefHeight="48.0" prefWidth="226.0" style="-fx-background-color: #101010; -fx-background-radius: 25px;">
+                  <Pane fx:id="paneStartTicket" layoutX="195.0" layoutY="84.0" prefHeight="48.0" prefWidth="226.0" style="-fx-background-color: #101010; -fx-background-radius: 25px;">
                      <children>
-                        <Label layoutX="19.0" layoutY="13.0" text="Начать тестирование" textFill="#838181">
+                        <Label layoutX="15.0" layoutY="13.0" text="Начать тестирование" textFill="#b9b4b4">
                            <font>
-                              <Font name="Consolas Bold" size="18.0" />
+                              <Font name="Times New Roman Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <Label layoutX="167.0" layoutY="5.0" text="Билеты взяты с safety-driving.kz" textFill="#838181">
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="48.0" prefWidth="107.0" style="-fx-background-color: #101010;">
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="37.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/time/time.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="13.0" text="40:00" textFill="#a49d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="141.0" layoutY="14.0" prefHeight="48.0" prefWidth="167.0" style="-fx-background-color: #101010;">
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="37.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/questions/questions.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="13.0" text="40 вопросов" textFill="#a49d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="330.0" layoutY="14.0" prefHeight="48.0" prefWidth="263.0" style="-fx-background-color: #101010;">
+                     <children>
+                        <ImageView fitHeight="31.0" fitWidth="37.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/attempts/attempts.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="46.0" layoutY="13.0" text="Попыток неограниченно" textFill="#a49d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Label alignment="TOP_CENTER" layoutX="16.0" layoutY="166.0" prefHeight="88.0" prefWidth="584.0" text="После начала тестирование, вам нужно будет ответить на 40 вопросов. На вопросы можно будет отвечать в любом порядке, и после изменять их ответ. На решение теста даётся: 40 минут. По истечении данного времени тест будет завершён. В случае закрытия приложения, тест считается &quot;Не отправленный&quot;." textAlignment="CENTER" textFill="#908d8d" wrapText="true">
                      <font>
-                        <Font name="Consolas Bold" size="16.0" />
+                        <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="167.0" layoutY="112.0" text="Билет содержит в себе 40 вопросов." textFill="#838181">
+                  <Label alignment="TOP_CENTER" layoutX="191.0" layoutY="321.0" prefHeight="19.0" prefWidth="234.0" text="Тесты с сайта safety-driving.kz" textAlignment="CENTER" textFill="#6b6767" wrapText="true">
                      <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="149.0" layoutY="130.0" text="На каждый билет даётся время 40 минут." textFill="#838181">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="48.0" layoutY="148.0" text="По истечению этого времени тест будет автоматически завершён." textFill="#838181">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="57.0" layoutY="164.0" prefHeight="48.0" prefWidth="501.0" text="В случае закрытия окна с билетами, билет считается как &quot;Не отправленный&quot;." textAlignment="CENTER" textFill="#838181" wrapText="true">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="84.0" layoutY="220.0" prefHeight="48.0" prefWidth="448.0" text="При досрочном завершении билета, нажмите на кнопку &quot;Завершить&quot; -&gt; &quot;Завершить тест&quot;." textAlignment="CENTER" textFill="#838181" wrapText="true">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="13.0" layoutY="289.0" text="Количество попыток не ограниченно. Засчитывается последняя попытка." textFill="#838181">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="13.0" layoutY="307.0" prefHeight="41.0" prefWidth="589.0" text="Тест можно перерешать в любой момент. Можно выбрать тест из истории из перерешать его." textAlignment="CENTER" textFill="#838181" wrapText="true">
-                     <font>
-                        <Font name="Consolas Bold" size="16.0" />
+                        <Font name="Times New Roman Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -207,9 +219,9 @@
                   <DropShadow />
                </effect>
                <children>
-                  <Label layoutX="21.0" layoutY="10.0" text="Настройки" textFill="#838181">
+                  <Label layoutX="21.0" layoutY="11.0" text="Настройки" textFill="#aba6a6">
                      <font>
-                        <Font name="Consolas Bold" size="18.0" />
+                        <Font name="Times New Roman Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
@@ -219,9 +231,31 @@
                   <DropShadow />
                </effect>
                <children>
-                  <Label layoutX="19.0" layoutY="10.0" text="Выйти из аккаунта" textFill="#838181">
+                  <Label layoutX="24.0" layoutY="11.0" text="Выйти из аккаунта" textFill="#aba6a6">
                      <font>
-                        <Font name="Consolas Bold" size="18.0" />
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="paneSubscribe" layoutX="640.0" layoutY="26.0" prefHeight="41.0" prefWidth="254.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <children>
+                  <Label fx:id="labelDateSubscribe" layoutX="59.0" layoutY="6.0" text="18 сентября 2022 г. в 20:20" textFill="#aba6a6">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="31.0" fitWidth="50.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/card/card.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="59.0" layoutY="19.0" text="Дата окончания подписки" textFill="#4d4c4c">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                </children>

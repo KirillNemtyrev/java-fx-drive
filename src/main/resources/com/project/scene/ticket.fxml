@@ -23,9 +23,9 @@
                   <Image url="@../images/panel/collapse.png" />
                </image>
             </ImageView>
-            <Label layoutX="14.0" layoutY="8.0" text="Правила Дорожного Движения, Казахстан" textFill="#a49e9e">
+            <Label fx:id="labelVersion" layoutX="14.0" layoutY="5.0" prefHeight="19.0" prefWidth="195.0" text="Подготовка к тестам ПДД" textFill="#a19d9d">
                <font>
-                  <Font name="Consolas Bold" size="14.0" />
+                  <Font name="Times New Roman Bold" size="16.0" />
                </font>
             </Label>
          </children>
@@ -39,22 +39,22 @@
             </ScrollPane>
             <Label fx:id="labelNumberQuestion" layoutX="112.0" layoutY="14.0" text="Вопрос #40" textFill="#c3bcbc">
                <font>
-                  <Font name="Consolas" size="24.0" />
+                  <Font name="Times New Roman" size="24.0" />
                </font>
             </Label>
             <Label fx:id="labelTextQuestion" layoutX="112.0" layoutY="42.0" prefHeight="44.0" prefWidth="1144.0" text="Если габаритная высота Вашего транспортного средства (с грузом или без груза) больше, указанной на данном дорожном знаке:" textFill="#c3bcbc" wrapText="true">
                <font>
-                  <Font name="Consolas" size="14.0" />
+                  <Font name="Times New Roman" size="16.0" />
                </font>
             </Label>
-            <Pane fx:id="paneTicketTime" layoutX="1020.0" layoutY="9.0" prefHeight="31.0" prefWidth="109.0" style="-fx-background-color: #141414;">
+            <Pane fx:id="paneTicketTime" layoutX="1001.0" layoutY="6.0" prefHeight="38.0" prefWidth="119.0" style="-fx-background-color: #141414;">
                <children>
-                  <Label fx:id="labelTicketTime" alignment="CENTER" layoutX="41.0" layoutY="2.0" prefHeight="28.0" prefWidth="59.0" text="60:60" textFill="#c9c7c7">
+                  <Label fx:id="labelTicketTime" alignment="CENTER" layoutX="46.0" layoutY="5.0" prefHeight="28.0" prefWidth="59.0" text="60:60" textFill="#c9c7c7">
                      <font>
-                        <Font name="Consolas Bold" size="18.0" />
+                        <Font name="Times New Roman Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="38.0" fitWidth="31.0" layoutX="4.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="38.0" fitWidth="31.0" layoutX="4.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/time/time.png" />
                      </image>
@@ -62,9 +62,9 @@
                </children>
             </Pane>
             <Pane fx:id="paneTicket" layoutX="112.0" layoutY="86.0" prefHeight="774.0" prefWidth="1144.0" />
-            <Label fx:id="labelAnswered" layoutX="250.0" layoutY="24.0" prefWidth="39.0" text="0/40" textFill="#978f8f">
+            <Label fx:id="labelAnswered" layoutX="234.0" layoutY="32.0" prefWidth="39.0" text="0/40" textFill="#978f8f">
                <font>
-                  <Font name="Consolas" size="14.0" />
+                  <Font name="Times New Roman" size="14.0" />
                </font>
             </Label>
             <Pane layoutX="273.0" layoutY="835.0" prefHeight="51.0" prefWidth="858.0" style="-fx-background-color: #141414;">
@@ -72,39 +72,39 @@
                   <Pane layoutX="8.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #754e0a;" />
                   <Label layoutX="40.0" layoutY="29.0" text="- выбранный ответ" textFill="#949393">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </Label>
                   <Pane layoutX="216.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #078029;" />
                   <Pane layoutX="430.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #ae1b1b;" />
                   <Label layoutX="249.0" layoutY="29.0" text="- правильный ответ" textFill="#949393">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </Label>
                   <Label layoutX="463.0" layoutY="29.0" text="- неправильный ответ" textFill="#949393">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </Label>
                   <Label alignment="CENTER" layoutX="10.0" layoutY="4.0" prefHeight="17.0" prefWidth="839.0" text="Чтобы отметить ваше решение, нажмите на нужный ответ. После полного прохождения теста, нажмите на кнопку &quot;Завершить&quot;." textFill="#8f8f8f" wrapText="true">
                      <font>
-                        <Font name="Consolas Bold" size="12.0" />
+                        <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Label>
                   <Pane layoutX="658.0" layoutY="29.0" prefHeight="17.0" prefWidth="21.0" style="-fx-background-color: #dab55e;" />
                   <Label layoutX="693.0" layoutY="29.0" text="- не отмеченный ответ" textFill="#949393">
                      <font>
-                        <Font name="Consolas Bold" size="13.0" />
+                        <Font name="Times New Roman Bold" size="15.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="paneEndTicket" layoutX="1143.0" layoutY="9.0" prefHeight="31.0" prefWidth="123.0" style="-fx-background-color: #141414;">
+            <Pane fx:id="paneEndTicket" layoutX="1137.0" layoutY="6.0" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #141414;">
                <children>
-                  <Label fx:id="labelEndTicket" layoutX="14.0" layoutY="4.0" text="Завершить" textFill="#b9b4b4">
+                  <Label fx:id="labelEndTicket" layoutX="14.0" layoutY="7.0" text="Завершить" textFill="#b9b4b4">
                      <font>
-                        <Font name="Monospaced Bold" size="18.0" />
+                        <Font name="Times New Roman Bold" size="20.0" />
                      </font>
                   </Label>
                </children>
