@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="paneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.controllers.RecoveryController">
+   <children>
+      <Pane fx:id="panePanel" prefHeight="31.0" prefWidth="346.0" style="-fx-background-color: #111111;">
+         <children>
+            <ImageView fx:id="imageClose" fitHeight="38.0" fitWidth="31.0" layoutX="315.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/panel/close.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imageCollapse" fitHeight="38.0" fitWidth="31.0" layoutX="285.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/panel/collapse.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="imageBack" fitHeight="38.0" fitWidth="31.0" layoutX="1.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/panel/back.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutY="31.0" prefHeight="509.0" prefWidth="346.0" style="-fx-background-color: #191919;">
+         <children>
+            <ImageView fitHeight="77.0" fitWidth="70.0" layoutX="37.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/rules/rules.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Label layoutX="106.0" layoutY="62.0" text="Правила дорожного движения" textFill="#5b5757">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="136.0" layoutY="43.0" text="Республика Казахстан" textFill="#837a7a">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnRecovery" disable="true" layoutX="74.0" layoutY="444.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="198.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;" text="Восстановить" textFill="#686666">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Label fx:id="labelError" alignment="CENTER" layoutX="16.0" layoutY="97.0" prefHeight="19.0" prefWidth="320.0" text="Время сессии истекло!" textFill="#807878" visible="false">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textfieldLogin" focusTraversable="false" layoutX="47.0" layoutY="162.0" prefHeight="31.0" prefWidth="252.0" style="-fx-background-color: #141414; -fx-text-fill: #807c7c;">
+               <font>
+                  <Font name="Times New Roman Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="47.0" layoutY="143.0" style="-fx-control-inner-color: #807c7c;" text="Ваш логин или E-mail:" textFill="#807c7c">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+            <Pane fx:id="paneRecovery" disable="true" layoutX="47.0" layoutY="219.0" prefHeight="189.0" prefWidth="252.0">
+               <children>
+                  <Label layoutY="74.0" style="-fx-control-inner-color: #807c7c;" text="Придумайте пароль:" textFill="#807c7c">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordfieldNew" layoutY="93.0" prefHeight="31.0" prefWidth="252.0" style="-fx-background-color: #141414; -fx-text-fill: #807c7c;" />
+                  <Label layoutY="128.0" style="-fx-control-inner-color: #807c7c;" text="Подтвердите пароль:" textFill="#807c7c">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordfieldConfirm" layoutY="151.0" prefHeight="31.0" prefWidth="252.0" style="-fx-background-color: #141414; -fx-text-fill: #807c7c;" />
+                  <TextField fx:id="textfieldCode" focusTraversable="false" layoutY="24.0" prefHeight="31.0" prefWidth="252.0" style="-fx-background-color: #141414; -fx-text-fill: #807c7c;">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutY="5.0" style="-fx-control-inner-color: #807c7c;" text="Введите код из письма:" textFill="#807c7c">
+                     <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="labelSendCode" layoutX="194.0" layoutY="193.0" style="-fx-control-inner-color: #807c7c;" text="Запросить код" textFill="#807c7c">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelWaitCode" layoutX="47.0" layoutY="193.0" style="-fx-control-inner-color: #807c7c;" text="Запросить код можно через 30 сек." textFill="#807c7c" visible="false">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>

@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -145,9 +147,6 @@ public class TicketController extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Runner.class.getResource("scene/ticket.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 920);
-        stage.setResizable(false);
-        stage.setTitle("Alpha Test");
-        //stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
 
@@ -400,6 +399,8 @@ public class TicketController extends Application {
 
             ticketNumbers.get(currentQuestion).getPane().setStyle("-fx-background-color: #141414");
             ticketNumbers.get(question).getPane().setStyle("-fx-background-color: #080808");
+
+            //scrollPaneQuestions.setVvalue(1 / (float) ticketNumbers.get(question).getPane().getLayoutY());
 
             currentQuestion = question;
             labelChoise = null;

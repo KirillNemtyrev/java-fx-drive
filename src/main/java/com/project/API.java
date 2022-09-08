@@ -2,21 +2,18 @@ package com.project;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.project.entity.StatisticEntity;
-import com.project.entity.TicketEndEntity;
-import com.project.entity.TicketEntity;
-import com.project.entity.TicketHistoryEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
+import com.project.entity.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +37,222 @@ public class API {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Boolean checkToken(String token){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpPost request = new HttpPost(host + "api/auth/token");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * The function is used to authorize the user according to the entered parameters.
+     * @param login
+     * @param password
+     * @return AuthEntity
+     */
+
+    public AuthEntity authProfile(String login, String password){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"usernameOrEmail\" :\"" + login + "\",\"password\" : \"" + password + "\"}";
+            HttpPost request = new HttpPost(host + "api/auth/signin");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+            if(response.getStatusLine().getStatusCode() != codeOk) return null;
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Gson().fromJson(stringBuffer.toString(), AuthEntity.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * The function is used to register a user according to the entered parameters.
+     * @param login
+     * @param name
+     * @param email
+     * @param password
+     * @return Result register
+     */
+
+    public String registerProfile(String login, String name, String email, String password){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"username\" :\"" + login + "\",\"name\" : \"" + name + "\",\"email\" : \"" + email + "\",\"password\" : \"" + password + "\"}";
+            HttpPost request = new HttpPost(host + "api/auth/signup");
+            request.setHeader("content-type", "application/json");
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public Boolean changeAvatar(File file){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpEntity httpEntity = MultipartEntityBuilder
+                    .create()
+                    .addBinaryBody("file", file, ContentType.APPLICATION_OCTET_STREAM, file.getName())
+                    .build();
+
+            HttpPost request = new HttpPost(host + "api/avatar");
+            request.setHeader("Authorization", "Bearer " + token);
+            request.setEntity(httpEntity);
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public Boolean changeUsername(String login) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"username\" :\"" + login + "\"}";
+            HttpPatch request = new HttpPatch(host + "api/settings/username");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Boolean changeName(String name) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"name\" :\"" + name + "\"}";
+            HttpPatch request = new HttpPatch(host + "api/settings/name");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Boolean changePassword(String oldPassword, String newPassword){
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"oldPassword\" :\"" + oldPassword + "\"," + "\"newPassword\" :\"" + newPassword + "\"}";
+            HttpPatch request = new HttpPatch(host + "api/settings/password");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public String sendCodeRecovery(String login){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{ \"usernameOrEmail\" :\"" + login + "\"}";
+            HttpPost request = new HttpPost(host + "api/recovery/password");
+            request.setHeader("content-type", "application/json");
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public String changePassword(String login, String code, String password){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{\"usernameOrEmail\" :\"" + login + "\", \"code\" :\"" + code + "\", \"password\" : \"" + password + "\"}";
+            HttpPatch request = new HttpPatch(host + "api/recovery/password");
+            request.setHeader("content-type", "application/json");
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     /**

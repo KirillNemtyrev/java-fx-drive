@@ -1,10 +1,15 @@
 package com.project.entity;
 
+import java.util.Date;
+
 public class StatisticEntity {
     private String name;
     private String username;
     private String email;
     private String photo;
+
+    private boolean subscribe;
+    private Date subscribeEnd;
 
     private TicketStatisticEntity ticket;
 
@@ -26,5 +31,13 @@ public class StatisticEntity {
 
     public TicketStatisticEntity getTicket() {
         return ticket;
+    }
+
+    public boolean isSubscribe() {
+        return subscribe;
+    }
+
+    public Date getSubscribeEnd() {
+        return subscribeEnd;
     }
 }
