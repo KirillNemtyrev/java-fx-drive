@@ -327,9 +327,9 @@
                               <Font name="Times New Roman Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" layoutY="35.0" prefHeight="674.0" prefWidth="400.0" style="-fx-background-color: transparent;" stylesheets="@../styles/scrollPane.css" vbarPolicy="NEVER">
+                        <ScrollPane hbarPolicy="NEVER" layoutY="35.0" prefHeight="675.0" prefWidth="400.0" style="-fx-background-color: transparent;" stylesheets="@../styles/scrollPane.css" vbarPolicy="NEVER">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="848.0" prefWidth="396.0" style="-fx-background-color: #141414;" stylesheets="@../styles/scrollPane.css">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="816.0" prefWidth="396.0" style="-fx-background-color: #141414;" stylesheets="@../styles/scrollPane.css">
                                  <children>
                                     <TextField fx:id="textfieldSettingsLogin" layoutX="45.0" layoutY="22.0" prefHeight="32.0" prefWidth="297.0" style="-fx-background-color: #111111; -fx-text-fill: #c3baba;">
                                        <font>
@@ -495,11 +495,6 @@
                                           <DropShadow />
                                        </effect>
                                     </Button>
-                                    <Label fx:id="labelRecoveryData" layoutX="113.0" layoutY="818.0" text="Восстановить данные" textFill="#7c7474">
-                                       <font>
-                                          <Font name="Times New Roman Bold" size="16.0" />
-                                       </font>
-                                    </Label>
                                  </children>
                               </AnchorPane>
                           </content>
@@ -509,6 +504,163 @@
                               <Image url="@../images/settings/settings.png" />
                            </image>
                         </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Group>
+            <Group fx:id="groupRetryTicket" visible="false">
+               <children>
+                  <Pane fx:id="paneBackgroundRetry" opacity="0.75" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: black;" />
+                  <Pane layoutX="450.0" layoutY="300.0" prefHeight="248.0" prefWidth="400.0" style="-fx-background-color: #141414;">
+                     <children>
+                        <ImageView fx:id="imageCloseRetry" fitHeight="31.0" fitWidth="31.0" layoutX="369.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/panel/close.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="6.0" prefHeight="16.0" prefWidth="321.0" text="Новая попытка" textFill="#9a9696">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="49.0" prefHeight="41.0" prefWidth="321.0" text="Вы действительно хотите начать тест заного?" textAlignment="CENTER" textFill="#c9c7c7" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelRetryDate" alignment="CENTER" layoutX="40.0" layoutY="105.0" prefHeight="16.0" prefWidth="321.0" text="Тест от 29 августа 2022 г. в 18:49" textAlignment="CENTER" textFill="#807c7c" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelRetryStatus" alignment="CENTER" layoutX="40.0" layoutY="124.0" prefHeight="16.0" prefWidth="321.0" text="Статус: Нерешенный (40/40)" textAlignment="CENTER" textFill="#807c7c" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelRetryAttempts" alignment="CENTER" layoutX="40.0" layoutY="143.0" prefHeight="16.0" prefWidth="321.0" text="Попыток : 100" textAlignment="CENTER" textFill="#807c7c" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buttonRetryStart" layoutX="77.0" layoutY="188.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" style="-fx-background-color: #101010;" text="Да, начать" textFill="#a19d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="buttonRetryClose" layoutX="213.0" layoutY="188.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" style="-fx-background-color: #101010;" text="Закрыть" textFill="#a19d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </Group>
+            <Group fx:id="groupHistorySubscribe" visible="false">
+               <children>
+                  <Pane fx:id="paneBackgroundSubscribe" opacity="0.75" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: black;" />
+                  <Pane layoutX="450.0" layoutY="100.0" prefHeight="709.0" prefWidth="400.0" style="-fx-background-color: #141414;">
+                     <children>
+                        <ImageView fx:id="imageCloseSubscribe" fitHeight="31.0" fitWidth="31.0" layoutX="369.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/panel/close.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="40.0" layoutY="6.0" prefHeight="16.0" prefWidth="321.0" text="Управление подпиской" textFill="#9a9696">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="27.0" layoutY="39.0" prefHeight="41.0" prefWidth="348.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <children>
+                              <Label fx:id="labelDateHistorySubscribe" alignment="CENTER" layoutX="115.0" layoutY="6.0" prefHeight="6.0" prefWidth="167.0" text="18 сентября 2022 г. в 20:20" textFill="#aba6a6">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="31.0" fitWidth="50.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/card/card.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="84.0" layoutY="19.0" text="Дата окончания текущей подписки." textFill="#4d4c4c">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </Pane>
+                        <Label layoutX="27.0" layoutY="98.0" text="Использование кода:" textFill="#aba7a7">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="textfieldCode" focusTraversable="false" layoutX="27.0" layoutY="115.0" prefHeight="32.0" prefWidth="332.0" style="-fx-background-color: #101010; -fx-text-fill: #aba7a7;">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                        </TextField>
+                        <Button fx:id="buttonCheckCode" layoutX="135.0" layoutY="158.0" mnemonicParsing="false" style="-fx-background-color: #101010;" text="Проверить код" textFill="#908c8c">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="labelResultPromo" alignment="CENTER" layoutX="31.0" layoutY="187.0" prefHeight="41.0" prefWidth="338.0" text="Промокод не действителен!" textAlignment="CENTER" textFill="#aba7a7" visible="false">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" layoutY="255.0" prefHeight="454.0" prefWidth="400.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+                          <content>
+                            <AnchorPane fx:id="anchorPaneSubscribes" minHeight="0.0" minWidth="0.0" prefHeight="453.0" prefWidth="399.0" style="-fx-background-color: #141414;" />
+                          </content>
+                        </ScrollPane>
+                        <Label layoutX="15.0" layoutY="239.0" text="Ваша история подписок:" textFill="#aba7a7">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Group>
+            <Group fx:id="groupNoConnect" visible="false">
+               <children>
+                  <Pane opacity="0.75" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: black;" />
+                  <Pane layoutX="525.0" layoutY="275.0" prefHeight="297.0" prefWidth="295.0" style="-fx-background-color: #141414;">
+                     <children>
+                        <Label alignment="CENTER" layoutX="45.0" layoutY="4.0" prefHeight="20.0" prefWidth="207.0" text="Отсутствует соединение" textFill="#686565">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelRetryConnect" alignment="CENTER" layoutX="51.0" layoutY="190.0" prefHeight="41.0" prefWidth="195.0" text="Повторная попытка через 30 секунд." textAlignment="CENTER" textFill="#807c7c" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buttonRetryConnect" layoutX="50.0" layoutY="248.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="195.0" style="-fx-background-color: #101010;" text="Повторить попытку" textFill="#a19d9d">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="124.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/noconnect/noconnect.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" layoutX="31.0" layoutY="44.0" prefHeight="55.0" prefWidth="234.0" text="Отсуствует подключение к серверу. Проверьте пожалуйста ваше интернет соединение.." textAlignment="CENTER" textFill="#bcb9b9" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </Pane>
                </children>

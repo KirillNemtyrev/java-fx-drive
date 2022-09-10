@@ -14,8 +14,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class API {
@@ -37,6 +40,15 @@ public class API {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public static boolean pingHost() {
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress("127.0.0.1", 8745), 10);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public Boolean checkToken(String token){
@@ -200,6 +212,49 @@ public class API {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public Boolean sendCodeToChangeEmail(){
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpPost request = new HttpPost(host + "api/settings/email");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+            return response.getStatusLine().getStatusCode() == 200;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String changeEmail(String code, String newEmail){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{\"code\" :\"" + code + "\", \"newEmail\" :\"" + newEmail + "\"}";
+            HttpPatch request = new HttpPatch(host + "api/settings/email");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 
@@ -412,6 +467,82 @@ public class API {
             return null;
         }
 
+    }
+
+    public List<SubscribeEntity> getSubscribes(){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpGet request = new HttpGet(host + "api/subscribe");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+            if(response.getStatusLine().getStatusCode() != codeOk) return null;
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Gson().fromJson(stringBuffer.toString(), new TypeToken<List<SubscribeEntity>>() {}.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public String activateCode(String code){
+
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            String params = "{\"code\" :\"" + code + "\"}";
+            HttpPost request = new HttpPost(host + "api/subscribe/activate");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+            request.setEntity(new StringEntity(params, "UTF-8"));
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return stringBuffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public Date getDateSubscribe(){
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+
+            HttpGet request = new HttpGet(host + "api/subscribe/date");
+            request.setHeader("content-type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
+
+            CloseableHttpResponse response = client.execute(request);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String lineForBuffer = "";
+
+            while ((lineForBuffer = bufferedReader.readLine()) != null) {
+                stringBuffer.append(lineForBuffer);
+            }
+            return new Date(Long.parseLong(stringBuffer.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

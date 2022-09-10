@@ -372,7 +372,6 @@ public class RecoveryController extends Application {
                 }
 
                 String status = new API().changePassword(textfieldLogin.getText(), textfieldCode.getText(), passwordfieldNew.getText());
-                System.out.println(status);
                 if(status.equals("Invalid code entered!")){
 
                     labelError.setText("Не верный код!");

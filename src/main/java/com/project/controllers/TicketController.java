@@ -132,10 +132,17 @@ public class TicketController extends Application {
     private static API api = new API();
 
     public TicketController(){}
+
     public TicketController(String token){
         api.setToken(token);
 
         ticketEntity = api.startTicket();
+    }
+
+    public TicketController(String token, String uuid){
+        api.setToken(token);
+
+        ticketEntity = api.retryTicket(uuid);
     }
 
     public void setTicketEntity(TicketEntity ticketEntity){

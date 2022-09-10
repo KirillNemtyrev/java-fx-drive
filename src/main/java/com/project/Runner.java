@@ -23,9 +23,9 @@ public class Runner extends Application {
         stage.setTitle("ПДД РК");
         stage.getIcons().add(new Image(Runner.class.getResource("images/rules/rules.png").toURI().toString()));
 
-        Config config = new Config();
-        if(config.token != null && new API().checkToken(config.token)){
-            new LobbyController(config.token).start(stage);
+        new Config();
+        if(Config.token != null && new API().checkToken(Config.token)){
+            new LobbyController(Config.token).start(stage);
             return;
         }
         new AuthController().start(stage);
