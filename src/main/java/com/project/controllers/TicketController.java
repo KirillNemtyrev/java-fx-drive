@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
@@ -32,72 +33,41 @@ import java.util.*;
 
 public class TicketController extends Application {
 
-    /* Variables for FXML top panel */
     @FXML
-    private ImageView imageCollapse;
+    private AnchorPane anchorPaneQuestions;
+
+    @FXML
+    private Button buttonRetryConnect;
+
+    @FXML
+    private Group groupCloseMenuTicket;
+
+    @FXML
+    private Group groupNoConnect;
+
+    @FXML
+    private Group groupTicketResult;
 
     @FXML
     private ImageView imageClose;
 
     @FXML
-    private Label labelEndTicket;
-
-    /* Variables for FXML ticket questions */
-    @FXML
-    private ScrollPane scrollPaneQuestions;
-
-    @FXML
-    private AnchorPane anchorPaneQuestions;
-
-    @FXML
-    private Label labelNumberQuestion;
-
-    @FXML
-    private Label labelTextQuestion;
-
-    @FXML
-    private Pane paneTicket;
-
-    @FXML
-    private Label labelAnswered;
-
-    @FXML
-    private Pane paneEndTicket;
-
-    /* Variables for FXML close ticket menu */
-    @FXML
-    private Group groupCloseMenuTicket;
-
-    @FXML
-    private Pane paneCloseTicket;
-
-    @FXML
-    private Pane paneRetryTicket;
-
-    @FXML
-    private Pane paneNewTicket;
-
-    @FXML
-    private Pane paneBackgroundClose;
-
-    @FXML
     private ImageView imageCloseMenuEnd;
-
-    /* Variables for FXML ticket result */
-    @FXML
-    private Group groupTicketResult;
-
-    @FXML
-    private Pane paneBackgroundResult;
 
     @FXML
     private ImageView imageCloseResult;
 
     @FXML
-    private Pane paneResultNewTicket;
+    private ImageView imageCollapse;
 
     @FXML
-    private Pane paneResultRetryTicket;
+    private Label labelAnswered;
+
+    @FXML
+    private Label labelEndTicket;
+
+    @FXML
+    private Label labelNumberQuestion;
 
     @FXML
     private Label labelResultAnswered;
@@ -109,25 +79,66 @@ public class TicketController extends Application {
     private Label labelResultPass;
 
     @FXML
-    private Pane paneResultTicket;
+    private Label labelRetryConnect;
+
+    @FXML
+    private Label labelTextQuestion;
+
+    @FXML
+    private Label labelTicketTime;
+
+    @FXML
+    private Label labelVersion;
 
     @FXML
     private Pane paneBackLobby;
 
     @FXML
+    private Pane paneBackgroundClose;
+
+    @FXML
+    private Pane paneBackgroundResult;
+
+    @FXML
+    private Pane paneCloseTicket;
+
+    @FXML
+    private Pane paneEndTicket;
+
+    @FXML
+    private Pane paneNewTicket;
+
+    @FXML
     private Pane paneResultBackLobby;
 
-    /* Variables for FXML timer */
     @FXML
-    private Label labelTicketTime;
+    private Pane paneResultNewTicket;
+
+    @FXML
+    private Pane paneResultRetryTicket;
+
+    @FXML
+    private Pane paneResultTicket;
+
+    @FXML
+    private Pane paneRetryTicket;
+
+    @FXML
+    private Pane paneTicket;
 
     @FXML
     private Pane paneTicketTime;
+
+    @FXML
+    private ScrollPane scrollPaneQuestions;
 
     private double offsetPosX;
     private double offsetPosY;
 
     private static TicketEntity ticketEntity;
+
+    public static Timer timerRetry;
+    private static long countdownRetry;
 
     private static API api = new API();
 
@@ -267,12 +278,27 @@ public class TicketController extends Application {
 
             paneEndTicket.setOnMouseEntered(event -> paneEndTicket.setStyle("-fx-background-color: #101010"));
             paneEndTicket.setOnMouseExited(event -> paneEndTicket.setStyle("-fx-background-color: #141414"));
-            paneEndTicket.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(true));
+            paneEndTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupCloseMenuTicket.setVisible(true);
+            });
             paneBackgroundClose.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(false));
 
             imageCloseMenuEnd.setOnMouseEntered(event -> imageCloseMenuEnd.setOpacity(1.0));
             imageCloseMenuEnd.setOnMouseExited(event -> imageCloseMenuEnd.setOpacity(0.5));
-            imageCloseMenuEnd.setOnMouseClicked(event -> groupCloseMenuTicket.setVisible(false));
+            imageCloseMenuEnd.setOnMouseClicked(event -> {
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupCloseMenuTicket.setVisible(false);
+            });
 
             paneCloseTicket.setOnMouseEntered(event -> {
                 paneCloseTicket.setLayoutY(paneCloseTicket.getLayoutY() - 1);
@@ -285,6 +311,12 @@ public class TicketController extends Application {
             });
 
             paneCloseTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 new CloseTicket();
                 groupCloseMenuTicket.setVisible(false);
                 groupTicketResult.setVisible(true);
@@ -301,6 +333,11 @@ public class TicketController extends Application {
             });
 
             paneRetryTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
 
                 groupCloseMenuTicket.setVisible(false);
                 groupTicketResult.setVisible(false);
@@ -323,6 +360,11 @@ public class TicketController extends Application {
 
             paneNewTicket.setOnMouseClicked(event -> {
 
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 groupCloseMenuTicket.setVisible(false);
                 groupTicketResult.setVisible(false);
 
@@ -341,6 +383,11 @@ public class TicketController extends Application {
                 paneBackLobby.setStyle("-fx-background-color: #400000");
             });
             paneBackLobby.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
 
                 Stage stage = (Stage) paneBackLobby.getScene().getWindow();
                 stage.close();
@@ -370,6 +417,11 @@ public class TicketController extends Application {
                 pane.setOnMouseEntered(event -> pane.setStyle("-fx-background-color: " + (currentQuestion == number ? "#050505" : "#111111")));
                 pane.setOnMouseExited(event -> pane.setStyle("-fx-background-color: " + (currentQuestion == number ? "#080808" : "#141414")));
                 pane.setOnMouseClicked(event -> {
+                    if(!API.pingHost()){
+                        new NoConnect();
+                        return;
+                    }
+
                     if(currentQuestion == number){
                         return;
                     }
@@ -403,6 +455,11 @@ public class TicketController extends Application {
          */
         @FXML
         public void selectQuestion(int question){
+
+            if(!API.pingHost()){
+                new NoConnect();
+                return;
+            }
 
             ticketNumbers.get(currentQuestion).getPane().setStyle("-fx-background-color: #141414");
             ticketNumbers.get(question).getPane().setStyle("-fx-background-color: #080808");
@@ -591,22 +648,57 @@ public class TicketController extends Application {
             }
 
             labelEndTicket.setText("Результат");
-            paneEndTicket.setOnMouseClicked(event -> groupTicketResult.setVisible(true));
+            paneEndTicket.setOnMouseClicked(event -> {
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupTicketResult.setVisible(true);
+            });
+
+            if(!API.pingHost()){
+                new NoConnect();
+                return;
+            }
 
             this.ticketEndEntity = api.endTicket(ticketEntity.getUuid(), TicketQuestions.answers);
             currentQuestion = TicketQuestions.currentQuestion;
 
             imageCloseResult.setOnMouseEntered(event -> imageCloseResult.setOpacity(1.0));
             imageCloseResult.setOnMouseExited(event -> imageCloseResult.setOpacity(0.5));
-            imageCloseResult.setOnMouseClicked(event -> groupTicketResult.setVisible(false));
-            paneBackgroundResult.setOnMouseClicked(event -> groupTicketResult.setVisible(false));
+            imageCloseResult.setOnMouseClicked(event -> {
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupTicketResult.setVisible(false);
+            });
+            paneBackgroundResult.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupTicketResult.setVisible(false);
+            });
 
             labelResultAnswered.setText("Вы ответили на " + new TicketQuestions().getAnswered() + " вопросов.");
             labelResultCorrect.setText(String.valueOf(ticketEndEntity.getCorrect()));
             labelResultPass.setText(ticketEndEntity.getTicketResultStatus() == 1 ? "Сдал" : "Не сдал");
             labelResultPass.setTextFill(Paint.valueOf(ticketEndEntity.getTicketResultStatus() == 1 ? "#078029" : "#ae1b1b"));
 
-            paneResultTicket.setOnMouseClicked(event -> groupTicketResult.setVisible(false));
+            paneResultTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                groupTicketResult.setVisible(false);
+            });
             paneResultTicket.setOnMouseEntered(event -> {
                 paneResultTicket.setLayoutY(paneResultTicket.getLayoutY() - 1);
                 paneResultTicket.setStyle("-fx-background-color: #080808");
@@ -618,6 +710,12 @@ public class TicketController extends Application {
             });
 
             paneResultNewTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 groupCloseMenuTicket.setVisible(false);
                 groupTicketResult.setVisible(false);
 
@@ -635,6 +733,12 @@ public class TicketController extends Application {
             });
 
             paneResultRetryTicket.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 groupCloseMenuTicket.setVisible(false);
                 groupTicketResult.setVisible(false);
 
@@ -660,6 +764,11 @@ public class TicketController extends Application {
                 paneResultBackLobby.setStyle("-fx-background-color: #400000");
             });
             paneResultBackLobby.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
 
                 Stage stage = (Stage) paneResultBackLobby.getScene().getWindow();
                 stage.close();
@@ -711,6 +820,11 @@ public class TicketController extends Application {
         }
 
         public void drawQuestion(int question){
+
+            if(!API.pingHost()){
+                new NoConnect();
+                return;
+            }
 
             TicketQuestions.ticketNumbers.get(currentQuestion).getPane().setStyle("-fx-background-color: #141414");
             TicketQuestions.ticketNumbers.get(question).getPane().setStyle("-fx-background-color: #080808");
@@ -888,6 +1002,85 @@ public class TicketController extends Application {
                     groupTicketResult.setVisible(true);
 
                 }
+
+            });
+        }
+
+    }
+
+    public class NoConnect{
+
+        public NoConnect(){
+
+            if(timerRetry != null){
+                timerRetry.cancel();
+                timerRetry = null;
+            }
+            timerRetry = new Timer();
+            timerRetry.schedule(new TaskTimerRetry(30), 1000, 1000);
+
+            groupNoConnect.setVisible(true);
+
+            buttonRetryConnect.setOnMouseEntered(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() - 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #080808");
+            });
+
+            buttonRetryConnect.setOnMouseExited(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() + 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #101010");
+            });
+
+            buttonRetryConnect.setOnMouseClicked(event -> {
+
+                boolean connect = API.pingHost();
+                groupNoConnect.setVisible(!connect);
+                if(connect){
+                    if(timerRetry != null){
+                        timerRetry.cancel();
+                        timerRetry = null;
+                    }
+                    countdownRetry = 0;
+                }
+
+            });
+
+        }
+
+    }
+
+    public class TaskTimerRetry extends TimerTask {
+
+        public TaskTimerRetry(){}
+        public TaskTimerRetry(long time){
+            countdownRetry = time;
+        }
+
+        @Override
+        public void run() {
+            Platform.runLater(() ->{
+
+                if(countdownRetry-- <= 0){
+
+                    boolean connect = API.pingHost();
+                    groupNoConnect.setVisible(!connect);
+                    if(connect){
+
+                        if(LobbyController.NoConnect.init){
+                            initialize();
+                        }
+
+                        if(timerRetry != null){
+                            timerRetry.cancel();
+                            timerRetry = null;
+                        }
+
+                        countdownRetry = 0;
+                        return;
+                    }
+                    countdownRetry = 30;
+                }
+                labelRetryConnect.setText("Повторная попытка через " + countdownRetry + " секунд.");
 
             });
         }

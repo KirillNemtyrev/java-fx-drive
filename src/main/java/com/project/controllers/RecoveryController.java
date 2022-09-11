@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,30 +16,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class RecoveryController extends Application {
 
     @FXML
-    private Label labelError;
+    private Button btnRecovery;
 
     @FXML
-    private Pane paneRecovery;
+    private Button buttonRetryConnect;
 
     @FXML
-    private Label labelSendCode;
+    private Group groupNoConnect;
 
     @FXML
-    private Label labelWaitCode;
-
-    @FXML
-    private TextField textfieldLogin;
+    private ImageView imageBack;
 
     @FXML
     private ImageView imageClose;
@@ -47,19 +42,31 @@ public class RecoveryController extends Application {
     private ImageView imageCollapse;
 
     @FXML
-    private ImageView imageBack;
+    private Label labelError;
 
     @FXML
-    private Button btnRecovery;
+    private Label labelRetryConnect;
 
     @FXML
-    private TextField textfieldCode;
+    private Label labelSendCode;
+
+    @FXML
+    private Label labelWaitCode;
+
+    @FXML
+    private Pane paneRecovery;
+
+    @FXML
+    private PasswordField passwordfieldConfirm;
 
     @FXML
     private PasswordField passwordfieldNew;
 
     @FXML
-    private PasswordField passwordfieldConfirm;
+    private TextField textfieldCode;
+
+    @FXML
+    private TextField textfieldLogin;
 
     private double offsetPosX;
     private double offsetPosY;
@@ -67,6 +74,9 @@ public class RecoveryController extends Application {
     public static Timer timer;
     public static String input;
     private static long countdown;
+
+    private static Timer timerRetry;
+    private static long countdownRetry;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -154,6 +164,11 @@ public class RecoveryController extends Application {
 
             imageBack.setOnMouseClicked(event -> {
 
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 Stage stage = (Stage) imageBack.getScene().getWindow();
                 //stage.close();
 
@@ -195,6 +210,11 @@ public class RecoveryController extends Application {
             labelSendCode.setOnMouseExited(event -> labelSendCode.setTextFill(Paint.valueOf("#807c7c")));
 
             labelSendCode.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
 
                 if(textfieldLogin.getText() == null || (!textfieldLogin.getText().matches("^[a-zA-Z0-9]+$") &&
                         !textfieldLogin.getText().matches("^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$"))){
@@ -341,6 +361,11 @@ public class RecoveryController extends Application {
             });
             btnRecovery.setOnMouseClicked(event -> {
 
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 if(textfieldCode.getText().length() != 6){
 
                     labelError.setText("Неверный формат кода!");
@@ -448,6 +473,85 @@ public class RecoveryController extends Application {
                 timer.schedule(new TaskTimer(countdown), 1000, 1000);
             }
 
+        }
+
+    }
+
+    public class NoConnect{
+
+        public NoConnect(){
+
+            if(timerRetry != null){
+                timerRetry.cancel();
+                timerRetry = null;
+            }
+            timerRetry = new Timer();
+            timerRetry.schedule(new TaskTimerRetry(30), 1000, 1000);
+
+            groupNoConnect.setVisible(true);
+
+            buttonRetryConnect.setOnMouseEntered(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() - 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #080808");
+            });
+
+            buttonRetryConnect.setOnMouseExited(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() + 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #101010");
+            });
+
+            buttonRetryConnect.setOnMouseClicked(event -> {
+
+                boolean connect = API.pingHost();
+                groupNoConnect.setVisible(!connect);
+                if(connect){
+                    if(timerRetry != null){
+                        timerRetry.cancel();
+                        timerRetry = null;
+                    }
+                    countdownRetry = 0;
+                }
+
+            });
+
+        }
+
+    }
+
+    public class TaskTimerRetry extends TimerTask {
+
+        public TaskTimerRetry(){}
+        public TaskTimerRetry(long time){
+            countdownRetry = time;
+        }
+
+        @Override
+        public void run() {
+            Platform.runLater(() ->{
+
+                if(countdownRetry-- <= 0){
+
+                    boolean connect = API.pingHost();
+                    groupNoConnect.setVisible(!connect);
+                    if(connect){
+
+                        if(LobbyController.NoConnect.init){
+                            initialize();
+                        }
+
+                        if(timerRetry != null){
+                            timerRetry.cancel();
+                            timerRetry = null;
+                        }
+
+                        countdownRetry = 0;
+                        return;
+                    }
+                    countdownRetry = 30;
+                }
+                labelRetryConnect.setText("Повторная попытка через " + countdownRetry + " секунд.");
+
+            });
         }
 
     }

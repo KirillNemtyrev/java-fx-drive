@@ -4,8 +4,10 @@ import com.project.API;
 import com.project.Runner;
 import com.project.entity.AuthEntity;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,20 +18,43 @@ import javafx.stage.Stage;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RegisterController extends Application {
+
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private Button buttonRetryConnect;
+
+    @FXML
+    private Group groupNoConnect;
 
     @FXML
     private ImageView imageBack;
 
     @FXML
-    private ImageView imageCollapse;
-
-    @FXML
     private ImageView imageClose;
 
     @FXML
+    private ImageView imageCollapse;
+
+    @FXML
     private Label labelError;
+
+    @FXML
+    private Label labelRetryConnect;
+
+    @FXML
+    private PasswordField passwordfieldConfirm;
+
+    @FXML
+    private PasswordField passwordfieldNew;
+
+    @FXML
+    private TextField textfieldEmail;
 
     @FXML
     private TextField textfieldLogin;
@@ -37,17 +62,8 @@ public class RegisterController extends Application {
     @FXML
     private TextField textfieldName;
 
-    @FXML
-    private TextField textfieldEmail;
-
-    @FXML
-    private PasswordField passwordfieldNew;
-
-    @FXML
-    private PasswordField passwordfieldConfirm;
-
-    @FXML
-    private Button btnRegister;
+    private static Timer timerRetry;
+    private static long countdownRetry;
 
     private double offsetPosX;
     private double offsetPosY;
@@ -135,6 +151,11 @@ public class RegisterController extends Application {
         public void backOnMouseClicked(){
 
             imageBack.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
 
                 Stage stage = (Stage) imageBack.getScene().getWindow();
                 //stage.close();
@@ -278,6 +299,12 @@ public class RegisterController extends Application {
                 btnRegister.setLayoutY(btnRegister.getLayoutY() + 1);
             });
             btnRegister.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
                 try {
                     register();
                 } catch (IOException e) {
@@ -337,6 +364,11 @@ public class RegisterController extends Application {
 
             }
 
+            if(!API.pingHost()){
+                new NoConnect();
+                return;
+            }
+
             String status = new API().registerProfile(textfieldLogin.getText(), textfieldName.getText(), textfieldEmail.getText(), passwordfieldNew.getText());
             if(status.equals("Username is already taken!")){
 
@@ -361,6 +393,85 @@ public class RegisterController extends Application {
             stage.close();
             new LobbyController(authEntity.getAccessToken()).start(stage);
 
+        }
+
+    }
+
+    public class NoConnect{
+
+        public NoConnect(){
+
+            if(timerRetry != null){
+                timerRetry.cancel();
+                timerRetry = null;
+            }
+            timerRetry = new Timer();
+            timerRetry.schedule(new TaskTimerRetry(30), 1000, 1000);
+
+            groupNoConnect.setVisible(true);
+
+            buttonRetryConnect.setOnMouseEntered(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() - 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #080808");
+            });
+
+            buttonRetryConnect.setOnMouseExited(event -> {
+                buttonRetryConnect.setLayoutY(buttonRetryConnect.getLayoutY() + 1);
+                buttonRetryConnect.setStyle("-fx-background-color: #101010");
+            });
+
+            buttonRetryConnect.setOnMouseClicked(event -> {
+
+                boolean connect = API.pingHost();
+                groupNoConnect.setVisible(!connect);
+                if(connect){
+                    if(timerRetry != null){
+                        timerRetry.cancel();
+                        timerRetry = null;
+                    }
+                    countdownRetry = 0;
+                }
+
+            });
+
+        }
+
+    }
+
+    public class TaskTimerRetry extends TimerTask {
+
+        public TaskTimerRetry(){}
+        public TaskTimerRetry(long time){
+            countdownRetry = time;
+        }
+
+        @Override
+        public void run() {
+            Platform.runLater(() ->{
+
+                if(countdownRetry-- <= 0){
+
+                    boolean connect = API.pingHost();
+                    groupNoConnect.setVisible(!connect);
+                    if(connect){
+
+                        if(LobbyController.NoConnect.init){
+                            initialize();
+                        }
+
+                        if(timerRetry != null){
+                            timerRetry.cancel();
+                            timerRetry = null;
+                        }
+
+                        countdownRetry = 0;
+                        return;
+                    }
+                    countdownRetry = 30;
+                }
+                labelRetryConnect.setText("Повторная попытка через " + countdownRetry + " секунд.");
+
+            });
         }
 
     }
