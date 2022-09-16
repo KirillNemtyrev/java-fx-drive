@@ -37,6 +37,9 @@ public class TicketController extends Application {
     private AnchorPane anchorPaneQuestions;
 
     @FXML
+    private Button buttonErrorExit;
+
+    @FXML
     private Button buttonRetryConnect;
 
     @FXML
@@ -44,6 +47,9 @@ public class TicketController extends Application {
 
     @FXML
     private Group groupNoConnect;
+
+    @FXML
+    private Group groupNoTicket;
 
     @FXML
     private Group groupTicketResult;
@@ -106,7 +112,13 @@ public class TicketController extends Application {
     private Pane paneEndTicket;
 
     @FXML
+    private Pane paneMain;
+
+    @FXML
     private Pane paneNewTicket;
+
+    @FXML
+    private Pane panePanel;
 
     @FXML
     private Pane paneResultBackLobby;
@@ -187,6 +199,33 @@ public class TicketController extends Application {
     public void initialize(){
 
         new ActionPanel();
+
+        if(ticketEntity == null || ticketEntity.getTicket().length == 0){
+
+            groupNoTicket.setVisible(true);
+
+            buttonErrorExit.setOnMouseEntered(event -> {
+                buttonErrorExit.setStyle("-fx-background-color: #080808");
+            });
+            buttonErrorExit.setOnMouseExited(event -> {
+                buttonErrorExit.setStyle("-fx-background-color: #101010");
+            });
+
+            buttonErrorExit.setOnMouseClicked(event -> {
+
+                Stage stage = (Stage) buttonErrorExit.getScene().getWindow();
+                stage.close();
+
+                try {
+                    new LobbyController(api.getToken()).start(stage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+
+        }
+
         new TicketQuestions(40);
     }
 

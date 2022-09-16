@@ -34,8 +34,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -120,6 +123,9 @@ public class LobbyController extends Application {
     private Label labelErrorSettings;
 
     @FXML
+    private Button buttonBuySubscribe;
+
+    @FXML
     private Label labelName;
 
     @FXML
@@ -162,6 +168,9 @@ public class LobbyController extends Application {
     private Label labelVersion;
 
     @FXML
+    private Label labelZeroStatistic;
+
+    @FXML
     private Pane paneBackgroundRetry;
 
     @FXML
@@ -172,6 +181,9 @@ public class LobbyController extends Application {
 
     @FXML
     private Pane paneExitAccount;
+
+    @FXML
+    private Pane paneForPie;
 
     @FXML
     private Pane paneMain;
@@ -441,9 +453,15 @@ public class LobbyController extends Application {
 
                 anchorPaneHistory.getChildren().addAll(imageView, title, description);
                 anchorPaneHistory.setPrefHeight(808);
+
+                labelZeroStatistic.setVisible(true);
+                //paneForPie.setStyle("-fx-background-color: gray; -fx-background-radius: 150px");
                 return;
             }
 
+            paneForPie.setVisible(false);
+            labelZeroStatistic.setVisible(false);
+            //paneForPie.setStyle("-fx-background-color: white; -fx-background-radius: 150px");
             Collections.sort(ticketHistoryEntities, new Comparator<TicketHistoryEntity>() {
                 @Override
                 public int compare(TicketHistoryEntity h, TicketHistoryEntity v) {
@@ -1033,6 +1051,35 @@ public class LobbyController extends Application {
     public class Subscribe{
 
         public Subscribe(){
+
+            buttonBuySubscribe.setOnMouseEntered(event -> {
+                buttonBuySubscribe.setLayoutY(buttonBuySubscribe.getLayoutY() - 1);
+                buttonBuySubscribe.setStyle("-fx-background-color: #080808; -fx-background-radius: 25px");
+            });
+
+            buttonBuySubscribe.setOnMouseExited(event -> {
+                buttonBuySubscribe.setLayoutY(buttonBuySubscribe.getLayoutY() + 1);
+                buttonBuySubscribe.setStyle("-fx-background-color: #101010; -fx-background-radius: 25px");
+            });
+
+            buttonBuySubscribe.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://t.me/japanverblud"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            });
 
             paneSubscribe.setOnMouseEntered(event -> {
                 paneSubscribe.setLayoutY(paneSubscribe.getLayoutY() - 1);

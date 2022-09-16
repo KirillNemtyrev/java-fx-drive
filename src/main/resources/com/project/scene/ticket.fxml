@@ -38,12 +38,12 @@
                 <AnchorPane fx:id="anchorPaneQuestions" minHeight="0.0" minWidth="0.0" prefHeight="867.0" prefWidth="67.0" style="-fx-background-color: #161616;" />
               </content>
             </ScrollPane>
-            <Label fx:id="labelNumberQuestion" layoutX="112.0" layoutY="14.0" text="Вопрос #40" textFill="#c3bcbc">
+            <Label fx:id="labelNumberQuestion" layoutX="112.0" layoutY="14.0" text="Вопрос #N" textFill="#c3bcbc">
                <font>
                   <Font name="Times New Roman" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="labelTextQuestion" layoutX="112.0" layoutY="42.0" prefHeight="44.0" prefWidth="1144.0" text="Если габаритная высота Вашего транспортного средства (с грузом или без груза) больше, указанной на данном дорожном знаке:" textFill="#c3bcbc" wrapText="true">
+            <Label fx:id="labelTextQuestion" layoutX="112.0" layoutY="42.0" prefHeight="44.0" prefWidth="1144.0" textFill="#c3bcbc" wrapText="true">
                <font>
                   <Font name="Times New Roman" size="16.0" />
                </font>
@@ -273,6 +273,35 @@
                      </image>
                   </ImageView>
                   <Label alignment="CENTER" layoutX="31.0" layoutY="44.0" prefHeight="55.0" prefWidth="234.0" text="Отсуствует подключение к серверу. Проверьте пожалуйста ваше интернет соединение.." textAlignment="CENTER" textFill="#bcb9b9" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Group>
+      <Group fx:id="groupNoTicket" layoutY="31.0" visible="false">
+         <children>
+            <Pane opacity="0.75" prefHeight="890.0" prefWidth="1280.0" style="-fx-background-color: black;" />
+            <Pane layoutX="525.0" layoutY="275.0" prefHeight="297.0" prefWidth="295.0" style="-fx-background-color: #141414;">
+               <children>
+                  <Label alignment="CENTER" layoutX="45.0" layoutY="4.0" prefHeight="20.0" prefWidth="207.0" text="Произошла ошибка" textFill="#686565">
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="buttonErrorExit" layoutX="50.0" layoutY="248.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="195.0" style="-fx-background-color: #101010;" text="Выйти" textFill="#a19d9d">
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="96.0" fitWidth="96.0" layoutX="101.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/error/error.png" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="31.0" layoutY="44.0" prefHeight="55.0" prefWidth="234.0" text="При получении информации билета произошла ошибка! Пожалуйста, попробуйте позже..." textAlignment="CENTER" textFill="#bcb9b9" wrapText="true">
                      <font>
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>

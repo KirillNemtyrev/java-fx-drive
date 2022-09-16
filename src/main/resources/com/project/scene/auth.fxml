@@ -70,7 +70,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button fx:id="btnSupport" layoutX="74.0" layoutY="450.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;" text="Поддержка" textFill="#686666">
+            <Button fx:id="btnSupport" layoutX="74.0" layoutY="450.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" style="-fx-background-color: #141414; -fx-background-radius: 25px;" text="Помощь" textFill="#686666">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>

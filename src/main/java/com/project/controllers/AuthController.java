@@ -22,7 +22,10 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -172,6 +175,7 @@ public class AuthController extends Application {
             ActionRegisterBtn();
             ActionSupportBtn();
             ActionRecoveryLabel();
+            ActionSupport();
         }
 
         public void ActionAuthBtn() {
@@ -234,6 +238,37 @@ public class AuthController extends Application {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            });
+
+        }
+
+        public void ActionSupport(){
+
+            btnSupport.setOnMouseEntered(event -> {
+                btnSupport.setLayoutY(btnSupport.getLayoutY() - 1);
+                btnSupport.setStyle("-fx-background-color: #080808; -fx-background-radius: 25px");
+            });
+
+            btnSupport.setOnMouseExited(event -> {
+                btnSupport.setLayoutY(btnSupport.getLayoutY() + 1);
+                btnSupport.setStyle("-fx-background-color: #101010; -fx-background-radius: 25px");
+            });
+
+            btnSupport.setOnMouseClicked(event -> {
+
+                if(!API.pingHost()){
+                    new NoConnect();
+                    return;
+                }
+
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI("https://t.me/japanverblud"));
+                    } catch (IOException | URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
             });
 
         }
